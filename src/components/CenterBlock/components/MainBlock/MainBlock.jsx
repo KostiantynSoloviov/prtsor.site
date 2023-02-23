@@ -4,9 +4,7 @@ import React from "react";
 import { TagsBlock } from "./components/TagsBlock/TagsBlock";
 import { MainCrdBlock } from "./components/MainCardBlock/MainCardBlock";
 
-const StyledMainBlock = styled.div`
-  height: 100%;
-`;
+const StyledMainBlock = styled.div``;
 
 function MainBlock() {
   return (
