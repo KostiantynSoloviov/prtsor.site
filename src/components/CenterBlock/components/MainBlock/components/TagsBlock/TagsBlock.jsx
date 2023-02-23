@@ -17,7 +17,7 @@ const StyledTagsBlock = styled.div`
   background-color: #21223e;
 
   .tagsSearch {
-    height: 50px;
+    height: 60px;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
@@ -25,7 +25,7 @@ const StyledTagsBlock = styled.div`
 
   .tags {
     margin-left: 35px;
-    height: 70px;
+    height: 60px;
     display: flex;
     flex-direction: row;
     flex-wrap: nowrap;
@@ -143,6 +143,7 @@ const sliderData = [
 ];
 
 const StyledTagsItem = styled.div`
+  margin-bottom: 5px;
   color: white;
   margin-right: 10px;
   display: inline-flex;

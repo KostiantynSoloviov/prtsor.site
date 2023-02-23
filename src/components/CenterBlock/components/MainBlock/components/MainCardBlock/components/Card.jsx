@@ -12,9 +12,17 @@ import {
   iconShareGroup,
   iconShow,
   iconDelete,
+  iconEditTag,
+  iconLink,
+  iconAvatar,
 } from "../../../../../../../image/icons";
 
 const StyledCard = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
   margin-top: 48px;
   width: 944px;
   height: 402px;
@@ -48,7 +56,6 @@ const StyledCard = styled.div`
 
   .imageChangeBlock {
     display: flex;
-    /* grid-template-columns: 20px 20px 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr 0.6fr; */
     align-items: center;
     justify-content: space-evenly;
     height: 42px;
@@ -66,6 +73,240 @@ const StyledCard = styled.div`
     width: 30px;
     height: 20px;
     background-color: white;
+  }
+
+  .card {
+    height: 402px;
+    width: 272px;
+    border-radius: 20px;
+    background-color: #21223e;
+    margin-left: 16px;
+  }
+
+  .cardHeader {
+    margin-top: 20px;
+    position: relative;
+    height: 104px;
+    width: 272px;
+    border-bottom: 1px solid #373854;
+
+    .cardHeaderGradient {
+      height: 24px;
+      width: 272px;
+      left: 0px;
+      top: 80px;
+      border-radius: 0px;
+      background: linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%);
+      position: absolute;
+    }
+
+    .cardHeaderTextMain {
+      margin: 0 0 8px 0;
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 17px;
+      color: white;
+    }
+
+    .cardHeaderText {
+      margin: 8px 15px 0 0;
+      color: white;
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+    }
+
+    .cardHeaderBlock {
+      height: 104px;
+      width: 240px;
+      margin: 0 0 0 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: overlay;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        height: 20px;
+        background-color: #373854;
+      }
+    }
+  }
+
+  .cardCentre {
+    position: relative;
+    height: 199px;
+    width: 272px;
+
+    .cardCentreBlock {
+      height: 179px;
+      width: 240px;
+      margin: 20px 0 0 20px;
+      display: flex;
+      flex-direction: column;
+      overflow-x: hidden;
+      overflow-y: overlay;
+
+      &::-webkit-scrollbar {
+        width: 4px;
+      }
+
+      &::-webkit-scrollbar-thumb {
+        height: 20px;
+        background-color: #373854;
+      }
+
+      .cardCentreUser {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+      }
+
+      .cardCentreAvatar {
+        margin: 0 8px 0 0;
+      }
+
+      .buttonCentreUser {
+        margin-left: -6px;
+      }
+
+      .cardCentreName {
+        margin-right: 15px;
+      }
+
+      .cardCentreText {
+        color: white;
+        font-weight: 350;
+        font-size: 12px;
+        line-height: 16px;
+      }
+
+      .cardCentreControlBlock {
+        margin-left: 32px;
+      }
+
+      .cardCentreTextControl {
+        color: #898aa4;
+        font-weight: 350;
+        font-size: 10px;
+        line-height: 13px;
+        margin-right: 8px;
+      }
+
+      .cardCentreButtonControl {
+        font-weight: 700;
+        font-size: 10px;
+        line-height: 13px;
+        cursor: pointer;
+        border: none;
+        color: #898aa4;
+        background-color: #21223e;
+      }
+    }
+
+    .cardCentreGradient {
+      height: 24px;
+      width: 272px;
+      left: 0px;
+      top: 155px;
+      border-radius: 0px;
+      background: linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%);
+      position: absolute;
+    }
+
+    .buttonCentreUser {
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 17px;
+      cursor: pointer;
+      border: none;
+      color: #757ffa;
+      background-color: #21223e;
+    }
+  }
+
+  .cardFooter {
+    height: 80px;
+    width: 272px;
+    margin-top: -20px;
+    border-top: 1px solid #373854;
+  }
+
+  .cardFooterBlockButton {
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    padding-top: 0px;
+    height: 40px;
+
+    .cardButton {
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+
+      cursor: pointer;
+      margin-left: 20px;
+      background-color: #21223e;
+      border: none;
+      color: #404bd9;
+    }
+
+    .cardButtonLink {
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+
+      cursor: pointer;
+      margin-left: 12px;
+      background-color: #21223e;
+      border: none;
+      color: #404bd9;
+    }
+
+    .cardFooterText {
+      margin-left: 5px;
+    }
+  }
+
+  .cardFooterBlockTime {
+    font-family: "Segoe UI";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 11px;
+    line-height: 15px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    color: white;
+    height: 40px;
+    margin-top: -14px;
+
+    .cardFooterDate {
+      margin-left: 24px;
+    }
+
+    .cardFooterTime {
+      margin-left: 12px;
+    }
   }
 `;
 
@@ -85,6 +326,113 @@ const Card = (scr, alt) => {
             <button className="iconDiv">{iconShareGroup}</button>
             <button className="iconDiv">{iconShow}</button>
             <button className="iconDiv">{iconDelete}</button>
+          </div>
+        </div>
+        <div className="card">
+          <div className="cardHeader">
+            <div className="cardHeaderGradient"></div>
+            <div className="cardHeaderBlock">
+              <span className="cardHeaderTextMain">Title of this tag</span>
+              <span className="cardHeaderText">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit orem
+                ipsum dolor sit amet
+              </span>
+              <span className="cardHeaderText">Tags</span>
+              <span className="cardHeaderText"> tags tags tags tags text</span>
+            </div>
+          </div>
+          <div className="cardCentre">
+            <div className="cardCentreGradient"></div>
+            <div className="cardCentreBlock">
+              <div className="cardCentreMainBlock">
+                <div className="cardCentreUser">
+                  <div className="cardCentreAvatar">{iconAvatar}</div>
+                  <div>
+                    <div className="cardCentreName">
+                      <button className="buttonCentreUser">null</button>
+                      <span className="cardCentreText">
+                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
+                        consectetur adipiscing elit, consectetur adipiscing
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="cardCentreControlBlock">
+                  <span className="cardCentreTextControl">Today</span>
+                  <button className="cardCentreButtonControl">Reply</button>
+                </div>
+              </div>
+              <div className="cardCentreMainBlock">
+                <div className="cardCentreUser">
+                  <div className="cardCentreAvatar">{iconAvatar}</div>
+                  <div>
+                    <div className="cardCentreName">
+                      <button className="buttonCentreUser">null</button>
+                      <span className="cardCentreText">
+                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
+                        consectetur adipiscing elit, consectetur adipiscing
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="cardCentreControlBlock">
+                  <span className="cardCentreTextControl">Today</span>
+                  <button className="cardCentreButtonControl">Reply</button>
+                </div>
+              </div>
+              <div className="cardCentreMainBlock">
+                <div className="cardCentreUser">
+                  <div className="cardCentreAvatar">{iconAvatar}</div>
+                  <div>
+                    <div className="cardCentreName">
+                      <button className="buttonCentreUser">null</button>
+                      <span className="cardCentreText">
+                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
+                        consectetur adipiscing elit, consectetur adipiscing
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="cardCentreControlBlock">
+                  <span className="cardCentreTextControl">Today</span>
+                  <button className="cardCentreButtonControl">Reply</button>
+                </div>
+              </div>
+              <div className="cardCentreMainBlock">
+                <div className="cardCentreUser">
+                  <div className="cardCentreAvatar">{iconAvatar}</div>
+                  <div>
+                    <div className="cardCentreName">
+                      <button className="buttonCentreUser">null</button>
+                      <span className="cardCentreText">
+                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
+                        consectetur adipiscing elit, consectetur adipiscing
+                      </span>
+                    </div>
+                  </div>
+                </div>
+                <div className="cardCentreControlBlock">
+                  <span className="cardCentreTextControl">Today</span>
+                  <button className="cardCentreButtonControl">Reply</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="cardFooter">
+            <div className="cardFooterBlockButton">
+              <button className="cardButton">
+                {iconEditTag}
+                <span className="cardFooterText">Edit tag</span>
+              </button>
+              <button className="cardButtonLink">
+                {iconLink}
+                <span className="cardFooterText">Link</span>
+              </button>
+            </div>
+            <div className="cardFooterBlockTime">
+              <span className="cardFooterDate">12 December 2022</span>
+              <span className="cardFooterTime">12:45:12</span>
+            </div>
           </div>
         </div>
       </StyledCard>
