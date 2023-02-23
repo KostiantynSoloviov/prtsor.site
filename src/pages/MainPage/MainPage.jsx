@@ -9,7 +9,8 @@ const StyledMainPage = styled.div`
   display: grid;
   grid-template-columns: 1fr 944px 1fr;
   width: 100%;
-  height: calc(100vh - 55px);
+  min-height: calc(100vh - 55px);
+  height: calc(100% - 55px);
   background-color: #121417;
 `;
 

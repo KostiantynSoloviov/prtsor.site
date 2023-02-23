@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import React from "react";
 
-import maxresdefault from "../../../../../../../image/maxresdefault.jpg";
 import {
   zoomButton,
   iconHome,
@@ -118,6 +117,25 @@ const StyledCard = styled.div`
       font-weight: 400;
       font-size: 13px;
       line-height: 17px;
+    }
+
+    .cardHeaderTextTags {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: flex-start;
+      margin: 8px 15px 0 0;
+      color: white;
+      font-family: "Segoe UI";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+    }
+
+    .cardHeaderLabelTags {
+      margin-top: 5px;
     }
 
     .cardHeaderBlock {
@@ -310,12 +328,21 @@ const StyledCard = styled.div`
   }
 `;
 
-const Card = (scr, alt) => {
+const Card = ({
+  scr,
+  alt,
+  titlePageTag,
+  textPageTag,
+  tags,
+  users,
+  date,
+  time,
+}) => {
   return (
     <>
       <StyledCard>
         <div class="image">
-          <img className="img" src={maxresdefault} alt="" />
+          <img className="img" src={scr} alt={alt} />
           <button className="zoomButton">{zoomButton}</button>
           <div className="imageChangeBlock">
             <button className="iconDiv">{iconHome}</button>
@@ -332,90 +359,47 @@ const Card = (scr, alt) => {
           <div className="cardHeader">
             <div className="cardHeaderGradient"></div>
             <div className="cardHeaderBlock">
-              <span className="cardHeaderTextMain">Title of this tag</span>
-              <span className="cardHeaderText">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit orem
-                ipsum dolor sit amet
-              </span>
+              <span className="cardHeaderTextMain">{titlePageTag}</span>
+              <span className="cardHeaderText">{textPageTag}</span>
               <span className="cardHeaderText">Tags</span>
-              <span className="cardHeaderText"> tags tags tags tags text</span>
+              <div className="cardHeaderTextTags">
+                {tags.map((item) => {
+                  return (
+                    <span className="cardHeaderLabelTags">{item.label}</span>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <div className="cardCentre">
             <div className="cardCentreGradient"></div>
             <div className="cardCentreBlock">
-              <div className="cardCentreMainBlock">
-                <div className="cardCentreUser">
-                  <div className="cardCentreAvatar">{iconAvatar}</div>
-                  <div>
-                    <div className="cardCentreName">
-                      <button className="buttonCentreUser">null</button>
-                      <span className="cardCentreText">
-                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
-                        consectetur adipiscing elit, consectetur adipiscing
-                      </span>
+              {users.length > 0 &&
+                users.map((item) => {
+                  return (
+                    <div className="cardCentreMainBlock">
+                      <div className="cardCentreUser">
+                        <div className="cardCentreAvatar">{iconAvatar}</div>
+                        <div>
+                          <div className="cardCentreName">
+                            <button className="buttonCentreUser">
+                              {item.userName}
+                            </button>
+                            <span className="cardCentreText">
+                              {item.userContent}
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="cardCentreControlBlock">
+                        <span className="cardCentreTextControl">Today</span>
+                        <button className="cardCentreButtonControl">
+                          Reply
+                        </button>
+                      </div>
                     </div>
-                  </div>
-                </div>
-                <div className="cardCentreControlBlock">
-                  <span className="cardCentreTextControl">Today</span>
-                  <button className="cardCentreButtonControl">Reply</button>
-                </div>
-              </div>
-              <div className="cardCentreMainBlock">
-                <div className="cardCentreUser">
-                  <div className="cardCentreAvatar">{iconAvatar}</div>
-                  <div>
-                    <div className="cardCentreName">
-                      <button className="buttonCentreUser">null</button>
-                      <span className="cardCentreText">
-                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
-                        consectetur adipiscing elit, consectetur adipiscing
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="cardCentreControlBlock">
-                  <span className="cardCentreTextControl">Today</span>
-                  <button className="cardCentreButtonControl">Reply</button>
-                </div>
-              </div>
-              <div className="cardCentreMainBlock">
-                <div className="cardCentreUser">
-                  <div className="cardCentreAvatar">{iconAvatar}</div>
-                  <div>
-                    <div className="cardCentreName">
-                      <button className="buttonCentreUser">null</button>
-                      <span className="cardCentreText">
-                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
-                        consectetur adipiscing elit, consectetur adipiscing
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="cardCentreControlBlock">
-                  <span className="cardCentreTextControl">Today</span>
-                  <button className="cardCentreButtonControl">Reply</button>
-                </div>
-              </div>
-              <div className="cardCentreMainBlock">
-                <div className="cardCentreUser">
-                  <div className="cardCentreAvatar">{iconAvatar}</div>
-                  <div>
-                    <div className="cardCentreName">
-                      <button className="buttonCentreUser">null</button>
-                      <span className="cardCentreText">
-                        Lorem ipsum dolor sit amet, ipsum dolor sit amet,
-                        consectetur adipiscing elit, consectetur adipiscing
-                      </span>
-                    </div>
-                  </div>
-                </div>
-                <div className="cardCentreControlBlock">
-                  <span className="cardCentreTextControl">Today</span>
-                  <button className="cardCentreButtonControl">Reply</button>
-                </div>
-              </div>
+                  );
+                })}
             </div>
           </div>
           <div className="cardFooter">
@@ -430,8 +414,8 @@ const Card = (scr, alt) => {
               </button>
             </div>
             <div className="cardFooterBlockTime">
-              <span className="cardFooterDate">12 December 2022</span>
-              <span className="cardFooterTime">12:45:12</span>
+              <span className="cardFooterDate">{date}</span>
+              <span className="cardFooterTime">{time}</span>
             </div>
           </div>
         </div>

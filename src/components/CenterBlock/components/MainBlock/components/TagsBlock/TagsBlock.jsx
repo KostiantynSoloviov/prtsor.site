@@ -119,29 +119,6 @@ const StyledTagsBlock = styled.div`
   }
 `;
 
-const sliderData = [
-  {
-    label: "My Work",
-    id: 0,
-  },
-  {
-    label: "Important",
-    id: 1,
-  },
-  {
-    label: "Design",
-    id: 2,
-  },
-  {
-    label: "Web",
-    id: 3,
-  },
-  {
-    label: "Freestyle",
-    id: 4,
-  },
-];
-
 const StyledTagsItem = styled.div`
   margin-bottom: 5px;
   color: white;
@@ -179,7 +156,7 @@ const TagItem = ({ onClose, label, id }) => {
   );
 };
 
-function TagsBlock() {
+function TagsBlock({ sliderData }) {
   const [tabs, setTabs] = useState(sliderData);
 
   const deleteTag = (item) => {
