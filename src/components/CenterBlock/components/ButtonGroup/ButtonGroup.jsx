@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import React from "react";
+import { useDispatch } from "react-redux";
+import { togglePageView } from "../../../../redux/slice/pageSlice";
 
 import { useState } from "react";
 
@@ -141,8 +143,13 @@ const StyledButton = styled.button`
 `;
 
 function ButtonGroup() {
+  const dispatch = useDispatch();
   const [privateButton, setPrivateButton] = useState("privateGroupLeft");
   const [deviceButton, setDeviceButton] = useState("pc");
+
+  const changeView = (view) => {
+    dispatch(togglePageView(view));
+  };
 
   return (
     <>
@@ -174,9 +181,24 @@ function ButtonGroup() {
                 <div>{buttonDown}</div>
               </MenuButton>
               <MenuList className="menuList">
-                <MenuItem className="menuItem">Download</MenuItem>
-                <MenuItem className="menuItem">Create a Copy</MenuItem>
-                <MenuItem className="menuItem">Mark as Draft</MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  onClick={() => changeView("View")}
+                >
+                  View
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  onClick={() => changeView("ViewVariant2")}
+                >
+                  ViewVariant2
+                </MenuItem>
+                <MenuItem
+                  className="menuItem"
+                  onClick={() => changeView("ViewVariant3")}
+                >
+                  ViewVariant3
+                </MenuItem>
               </MenuList>
             </Menu>
           </div>
