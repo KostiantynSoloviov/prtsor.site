@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import React from "react";
+import { useSelector } from "react-redux";
 
 import {
   zoomButton,
@@ -78,7 +79,7 @@ const StyledCard = styled.div`
     height: 402px;
     width: 272px;
     border-radius: 20px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
     margin-left: 16px;
   }
 
@@ -87,7 +88,8 @@ const StyledCard = styled.div`
     position: relative;
     height: 104px;
     width: 272px;
-    border-bottom: 1px solid #373854;
+    border-bottom: ${(props) =>
+      props.color ? `1px solid #373854;` : `1px solid #E8E8E8;`};
 
     .cardHeaderGradient {
       height: 24px;
@@ -95,7 +97,10 @@ const StyledCard = styled.div`
       left: 0px;
       top: 80px;
       border-radius: 0px;
-      background: linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%);
+      background: ${(props) =>
+        props.color
+          ? `linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%)`
+          : `linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #FFF6F6 100%)`};
       position: absolute;
     }
 
@@ -106,12 +111,12 @@ const StyledCard = styled.div`
       font-weight: 700;
       font-size: 13px;
       line-height: 17px;
-      color: white;
+      color: ${(props) => (props.color ? "white" : "#707088")};
     }
 
     .cardHeaderText {
       margin: 8px 15px 0 0;
-      color: white;
+      color: ${(props) => (props.color ? "white" : "#707088")};
       font-family: "Segoe UI";
       font-style: normal;
       font-weight: 400;
@@ -126,7 +131,7 @@ const StyledCard = styled.div`
       justify-content: flex-start;
       align-items: flex-start;
       margin: 8px 15px 0 0;
-      color: white;
+      color: ${(props) => (props.color ? "white" : "#707088")};
       font-family: "Segoe UI";
       font-style: normal;
       font-weight: 400;
@@ -153,7 +158,7 @@ const StyledCard = styled.div`
 
       &::-webkit-scrollbar-thumb {
         height: 20px;
-        background-color: #373854;
+        background-color: ${(props) => (props.color ? "#373854" : "#FFDBDB")};
       }
     }
   }
@@ -178,7 +183,7 @@ const StyledCard = styled.div`
 
       &::-webkit-scrollbar-thumb {
         height: 20px;
-        background-color: #373854;
+        background-color: ${(props) => (props.color ? "#373854" : "#FFDBDB")};
       }
 
       .cardCentreUser {
@@ -201,7 +206,7 @@ const StyledCard = styled.div`
       }
 
       .cardCentreText {
-        color: white;
+        color: ${(props) => (props.color ? "white" : "#707088")};
         font-weight: 350;
         font-size: 12px;
         line-height: 16px;
@@ -226,7 +231,7 @@ const StyledCard = styled.div`
         cursor: pointer;
         border: none;
         color: #898aa4;
-        background-color: #21223e;
+        background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
       }
     }
 
@@ -236,7 +241,10 @@ const StyledCard = styled.div`
       left: 0px;
       top: 155px;
       border-radius: 0px;
-      background: linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%);
+      background: ${(props) =>
+        props.color
+          ? `linear-gradient(180deg, rgba(33, 34, 62, 0) 0%, #21223e 100%)`
+          : `linear-gradient(180deg, rgba(249, 249, 249, 0) 0%, #FFF6F6 100%)`};
       position: absolute;
     }
 
@@ -249,7 +257,7 @@ const StyledCard = styled.div`
       cursor: pointer;
       border: none;
       color: #757ffa;
-      background-color: #21223e;
+      background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
     }
   }
 
@@ -257,7 +265,8 @@ const StyledCard = styled.div`
     height: 80px;
     width: 272px;
     margin-top: -20px;
-    border-top: 1px solid #373854;
+    border-top: ${(props) =>
+      props.color ? `1px solid #373854;` : `1px solid #E8E8E8;`};
   }
 
   .cardFooterBlockButton {
@@ -279,7 +288,7 @@ const StyledCard = styled.div`
 
       cursor: pointer;
       margin-left: 20px;
-      background-color: #21223e;
+      background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
       border: none;
       color: #404bd9;
     }
@@ -293,7 +302,7 @@ const StyledCard = styled.div`
 
       cursor: pointer;
       margin-left: 12px;
-      background-color: #21223e;
+      background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
       border: none;
       color: #404bd9;
     }
@@ -314,7 +323,7 @@ const StyledCard = styled.div`
     flex-wrap: nowrap;
     justify-content: flex-start;
     align-items: center;
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#B6C2D1")};
     height: 40px;
     margin-top: -14px;
 
@@ -338,9 +347,10 @@ const Card = ({
   date,
   time,
 }) => {
+  const color = useSelector((state) => state.pageReducer.color);
   return (
     <>
-      <StyledCard>
+      <StyledCard color={color}>
         <div class="image">
           <img className="img" src={scr} alt={alt} />
           <button className="zoomButton">{zoomButton}</button>
@@ -355,7 +365,7 @@ const Card = ({
             <button className="iconDiv">{iconDelete}</button>
           </div>
         </div>
-        <div className="card">
+        <div className="card" color={color}>
           <div className="cardHeader">
             <div className="cardHeaderGradient"></div>
             <div className="cardHeaderBlock">

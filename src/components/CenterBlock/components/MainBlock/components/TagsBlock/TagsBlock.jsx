@@ -4,17 +4,15 @@ import React from "react";
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { useState } from "react";
 
-import {
-  iconSearchInput,
-  iconButtonDown,
-  tagClose,
-} from "../../../../../../image/icons";
+import { useSelector } from "react-redux";
+
+import { SVGgeneral } from "../../../../../../utils/generalSprite";
 
 const StyledTagsBlock = styled.div`
   height: 120px;
   width: 944px;
   border-radius: 20px;
-  background-color: #21223e;
+  background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
 
   .tagsSearch {
     height: 60px;
@@ -55,14 +53,15 @@ const StyledTagsBlock = styled.div`
     font-size: 13px;
     line-height: 17px;
 
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
     border-radius: 20px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "white")};
     height: 33px;
     width: 221px;
     padding: 0 0px 0 10px;
     font-size: 15px;
-    border: 1px solid #373854;
+    border: ${(props) =>
+      props.color ? `1px solid #373854` : `1px solid #FBEBEB`};
     margin-bottom: 10px;
     outline: none;
     width: 100%;
@@ -86,9 +85,10 @@ const StyledTagsBlock = styled.div`
     height: 33px;
     width: 98px;
     border-radius: 32px;
-    background-color: #21223e;
-    border: 1px solid #373854;
-    color: white;
+    background-color: ${(props) => (props.color ? "#21223e" : "#FFFFFF")};
+    border: ${(props) =>
+      props.color ? `1px solid #373854` : `1px solid #FBEBEB`};
+    color: ${(props) => (props.color ? "white" : "#21223E")};
   }
 
   .buttonMenu {
@@ -101,10 +101,10 @@ const StyledTagsBlock = styled.div`
 
   .menuItem {
     cursor: pointer;
-    background-color: #1a1b2e;
+    background-color: ${(props) => (props.color ? "#1a1b2e" : "#FFFFFF")};
     height: 30px;
-    border: none;
-    color: white;
+    border: ${(props) => (props.color ? "none" : `1px solid #FBEBEB`)};
+    color: ${(props) => (props.color ? "white" : "#21223E")};
   }
 
   .text {
@@ -113,7 +113,7 @@ const StyledTagsBlock = styled.div`
     font-weight: 600;
     font-size: 17px;
     line-height: 23px;
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
 
     margin-left: 35px;
   }
@@ -131,7 +131,7 @@ const StyledTagsItem = styled.div`
   /* width: 100%; */
   border-radius: 12px;
   padding: 8px 20px 8px 20px;
-  background-color: #373854;
+  background-color: ${(props) => (props.color ? "#373854" : "#F5A8A8")};
 
   .closeButton {
     cursor: pointer;
@@ -139,9 +139,9 @@ const StyledTagsItem = styled.div`
   }
 `;
 
-const TagItem = ({ onClose, label, id }) => {
+const TagItem = ({ onClose, label, id, color }) => {
   return (
-    <StyledTagsItem key={id}>
+    <StyledTagsItem color={color} key={id}>
       <div>{label}</div>
       <div
         className="closeButton"
@@ -150,7 +150,7 @@ const TagItem = ({ onClose, label, id }) => {
           e.stopPropagation();
         }}
       >
-        {tagClose}
+        <SVGgeneral id="tagClose" />
       </div>
     </StyledTagsItem>
   );
@@ -158,6 +158,7 @@ const TagItem = ({ onClose, label, id }) => {
 
 function TagsBlock({ sliderData }) {
   const [tabs, setTabs] = useState(sliderData);
+  const color = useSelector((state) => state.pageReducer.color);
 
   const deleteTag = (item) => {
     setTabs((tabs) => {
@@ -168,7 +169,7 @@ function TagsBlock({ sliderData }) {
 
   return (
     <>
-      <StyledTagsBlock>
+      <StyledTagsBlock color={color}>
         <div className="tagsSearch">
           <div className="text">
             <span>Tags including image</span>
@@ -176,13 +177,20 @@ function TagsBlock({ sliderData }) {
           <div className="inputBlock">
             <div className="inputWrapper">
               <input type="text" className="input" placeholder="Search tag" />
-              <div className="inputIcon">{iconSearchInput}</div>
+              <div className="inputIcon">
+                <SVGgeneral id="iconSearchInput" />
+              </div>
             </div>
-            <Menu className="menu">
+            <Menu className="menu" color={color}>
               <MenuButton className="menuButton">
                 <div className="buttonMenu">
                   <span>All tags</span>
-                  <div>{iconButtonDown}</div>
+                  <div>
+                    <SVGgeneral
+                      id="iconButtonDown"
+                      style={{ fill: color ? "white" : "#21223E" }}
+                    />
+                  </div>
                 </div>
               </MenuButton>
               <MenuList className="menuList">
@@ -198,6 +206,7 @@ function TagsBlock({ sliderData }) {
             {tabs.map((item) => {
               return (
                 <TagItem
+                  color={color}
                   key={item.id}
                   label={item.label}
                   onClose={() => deleteTag(tabs.indexOf(item))}

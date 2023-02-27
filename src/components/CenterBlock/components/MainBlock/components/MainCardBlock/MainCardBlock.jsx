@@ -26,7 +26,7 @@ const StyledMainCrdBlock = styled.div`
     margin: 24px 0 24px 0;
     height: 2px;
     width: 944px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "#FBEBEB")};
   }
 
   .buttonRefresh {
@@ -44,9 +44,9 @@ const StyledMainCrdBlock = styled.div`
     height: 42px;
     width: 194px;
     border-radius: 24px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "white")};
     border: none;
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
 
     margin-bottom: 30px;
   }
@@ -57,6 +57,8 @@ const MainCrdBlock = ({ imageData }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(3);
   const searchTypes = useSelector((state) => state.pageReducer.view);
+
+  const color = useSelector((state) => state.pageReducer.color);
 
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
@@ -86,7 +88,7 @@ const MainCrdBlock = ({ imageData }) => {
 
   return (
     <>
-      <StyledMainCrdBlock>
+      <StyledMainCrdBlock color={color}>
         {currentData &&
           searchTypes === "View" &&
           currentData.map((item) => {
@@ -121,7 +123,7 @@ const MainCrdBlock = ({ imageData }) => {
             })}
           </div>
         )}
-        <div className="paginationBlock">
+        <div className="paginationBlock" color={color}>
           <Pagination
             dataPerPage={dataPerPage}
             totalData={data.length}

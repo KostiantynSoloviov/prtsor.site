@@ -1,19 +1,12 @@
 import styled from "styled-components";
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { togglePageView } from "../../../../redux/slice/pageSlice";
 
 import { useState } from "react";
 
 import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
-
-import {
-  iconGeneral,
-  iconPrivate,
-  iconPC,
-  iconAndroid,
-  buttonDown,
-} from "../../../../image/icons";
+import { SVGgeneral } from "../../../../utils/generalSprite";
 
 const StyledButtonGroup = styled.div`
   height: 196px;
@@ -24,7 +17,7 @@ const StyledButtonGroup = styled.div`
     height: 100px;
 
     .activeButton {
-      background-color: #1a1b2e;
+      background-color: ${(props) => (props.color ? "#1a1b2e" : "#FBEBEB")};
     }
   }
 
@@ -34,6 +27,11 @@ const StyledButtonGroup = styled.div`
     align-items: center;
 
     margin: 15px 5px 0 0;
+
+    .privateGroupRightButton {
+      background-color: ${(props) => (props.color ? "#121417" : "#FFFFFF")};
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
   }
 
   .privateGroupRight {
@@ -44,20 +42,37 @@ const StyledButtonGroup = styled.div`
 
     margin: 15px 0 0 5px;
 
+    .privateGroupRightButton {
+      background-color: ${(props) => (props.color ? "#121417" : "#FFFFFF")};
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+
     .menuButton {
+      margin-right: 16px;
       cursor: pointer;
-      padding: 0;
-      background-color: #121417;
-      border: none;
-      border-radius: 17px;
+      height: 33px;
+      width: 85px;
+      border-radius: 32px;
+      background-color: ${(props) => (props.color ? "#21223e" : "#FFFFFF")};
+      border: ${(props) =>
+        props.color ? `1px solid #373854` : `1px solid #FBEBEB`};
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+
+    .buttonMenu {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
     }
 
     .menuItem {
       cursor: pointer;
-      background-color: #1a1b2e;
+      background-color: ${(props) => (props.color ? "#1a1b2e" : "#FFFFFF")};
       height: 30px;
-      border: none;
-      color: white;
+      border: ${(props) => (props.color ? "none" : `1px solid #FBEBEB`)};
+      color: ${(props) => (props.color ? "white" : "#21223E")};
     }
   }
 
@@ -99,22 +114,23 @@ const StyledButtonGroup = styled.div`
       padding: 8px 24px 8px 24px;
       margin: 0 5px 15px 0;
       grid-template-columns: 30px 1fr;
-      background-color: #1a1b2e;
+      background-color: ${(props) => (props.color ? "#1a1b2e" : "#FBEBEB")};
+      color: ${(props) => (props.color ? "white" : "#21223E")};
     }
   }
 `;
+
 const StyledButton = styled.button`
   cursor: pointer;
   display: grid;
   grid-template-columns: 65px 1fr;
   justify-content: flex-start;
   align-items: center;
-  border: none;
-  background: #21223e;
+  border: ${(props) => (props.color ? "none" : `1px solid #FBEBEB`)};
   height: 45px;
   width: 169px;
   border-radius: 32px;
-  background-color: #121417;
+  background-color: ${(props) => (props.color ? "#121417" : "#FFFFFF")};
 
   font-family: "Segoe UI";
   font-size: 20px;
@@ -124,7 +140,7 @@ const StyledButton = styled.button`
   text-align: left;
 
   .text {
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
   }
 
   .svgBlock {
@@ -147,38 +163,64 @@ function ButtonGroup() {
   const [privateButton, setPrivateButton] = useState("privateGroupLeft");
   const [deviceButton, setDeviceButton] = useState("pc");
 
+  const color = useSelector((state) => state.pageReducer.color);
+
   const changeView = (view) => {
     dispatch(togglePageView(view));
   };
 
   return (
     <>
-      <StyledButtonGroup>
+      <StyledButtonGroup color={color}>
         <div className="privateGroup">
           <div className="privateGroupLeft">
             <StyledButton
+              color={color}
               className={
-                privateButton === "privateGroupLeft" ? "activeButton" : ""
+                privateButton === "privateGroupLeft"
+                  ? "activeButton"
+                  : "privateGroupRightButton"
               }
               onClick={() => setPrivateButton("privateGroupLeft")}
             >
-              <div className="svgBlock">{iconGeneral}</div>
+              <div className="svgBlock">
+                <SVGgeneral id="iconGeneral" />
+              </div>
               <span className="text">General</span>
             </StyledButton>
           </div>
           <div className="privateGroupRight">
             <StyledButton
+              color={color}
               className={
-                privateButton === "privateGroupRight" ? "activeButton" : ""
+                privateButton === "privateGroupRight"
+                  ? "activeButton"
+                  : "privateGroupRightButton"
               }
               onClick={() => setPrivateButton("privateGroupRight")}
             >
-              <div className="svgBlockPrivate">{iconPrivate}</div>
+              <div className="svgBlockPrivate">
+                <SVGgeneral
+                  id="iconPrivate"
+                  style={{
+                    fill: color ? "#FFFFFF" : "#21223E",
+                    stroke: color ? "#FFFFFF" : "#21223E",
+                  }}
+                />
+              </div>
               <span className="text">Private</span>
             </StyledButton>
-            <Menu className="menu">
+            <Menu className="menu" color={color}>
               <MenuButton className="menuButton">
-                <div>{buttonDown}</div>
+                <div className="buttonMenu">
+                  <span>View</span>
+                  <div>
+                    <SVGgeneral
+                      id="iconButtonDown"
+                      style={{ fill: color ? "white" : "#21223E" }}
+                    />
+                  </div>
+                </div>
               </MenuButton>
               <MenuList className="menuList">
                 <MenuItem
@@ -205,6 +247,7 @@ function ButtonGroup() {
         </div>
         <div className="deviceGroup">
           <StyledButton
+            color={color}
             className={
               deviceButton === "pc"
                 ? "activeDeviceGroupButton"
@@ -212,10 +255,18 @@ function ButtonGroup() {
             }
             onClick={() => setDeviceButton("pc")}
           >
-            <div className="svgBlock">{iconPC}</div>
+            <div className="svgBlock">
+              <SVGgeneral
+                id="iconPC"
+                style={{
+                  fill: color ? "#FFFFFF" : "#21223E",
+                }}
+              />
+            </div>
             <span className="text">PC</span>
           </StyledButton>
           <StyledButton
+            color={color}
             className={
               deviceButton === "android"
                 ? "activeDeviceGroupButton"
@@ -223,10 +274,18 @@ function ButtonGroup() {
             }
             onClick={() => setDeviceButton("android")}
           >
-            <div className="svgBlock">{iconAndroid}</div>
+            <div className="svgBlock">
+              <SVGgeneral
+                id="iconAndroid"
+                style={{
+                  fill: color ? "#FFFFFF" : "#21223E",
+                }}
+              />
+            </div>
             <span className="text">Mobile Android</span>
           </StyledButton>
           <StyledButton
+            color={color}
             className={
               deviceButton === "ios"
                 ? "activeDeviceGroupButton"
@@ -234,7 +293,14 @@ function ButtonGroup() {
             }
             onClick={() => setDeviceButton("ios")}
           >
-            <div className="svgBlock">{iconAndroid}</div>
+            <div className="svgBlock">
+              <SVGgeneral
+                id="iconAndroid"
+                style={{
+                  fill: color ? "#FFFFFF" : "#21223E",
+                }}
+              />
+            </div>
             <span className="text">Mobile IOS</span>
           </StyledButton>
         </div>

@@ -2,6 +2,7 @@ import styled from "styled-components";
 import React from "react";
 
 import { iconNextPage, iconPrewPage } from "../../../../../../../image/icons";
+import { useSelector } from "react-redux";
 
 const StyledPagination = styled.div`
   display: flex;
@@ -22,8 +23,8 @@ const StyledPagination = styled.div`
     height: 42px;
     width: 216px;
     border-radius: 24px;
-    background-color: #21223e;
-    color: white;
+    background-color: ${(props) => (props.color ? "#21223e" : "white")};
+    color: ${(props) => (props.color ? "white" : "#21223E")};
   }
 
   .pageItems {
@@ -42,6 +43,7 @@ const StyledPagination = styled.div`
 
   .ArrowPage {
     margin: 0 8px 0 8px;
+    border: ${(props) => (props.color ? "none" : `1px solid #404BD9`)};
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -49,7 +51,7 @@ const StyledPagination = styled.div`
     height: 42px;
     width: 42px;
     border-radius: 24px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "white")};
   }
 `;
 
@@ -61,6 +63,7 @@ const Pagination = ({
   prewPage,
 }) => {
   const pageNumbers = [];
+  const color = useSelector((state) => state.pageReducer.color);
 
   for (let i = 1; i <= Math.ceil(totalData / dataPerPage); i++) {
     pageNumbers.push(i);
@@ -68,8 +71,8 @@ const Pagination = ({
 
   return (
     <>
-      <StyledPagination>
-        <div className="ArrowPage" onClick={() => prewPage()}>
+      <StyledPagination color={color}>
+        <div className="ArrowPage" onClick={() => prewPage()} color={color}>
           {iconPrewPage}
         </div>
         <div className="paginationNumber">
@@ -87,7 +90,7 @@ const Pagination = ({
             })}
           </div>
         </div>
-        <div className="ArrowPage" onClick={() => nextPage()}>
+        <div className="ArrowPage" onClick={() => nextPage()} color={color}>
           {iconNextPage}
         </div>
       </StyledPagination>

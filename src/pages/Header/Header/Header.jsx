@@ -1,9 +1,16 @@
 import styled from "styled-components";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import window from "../../../image/window";
 
+import { SVGgeneral } from "../../../utils/generalSprite";
+
 import logoWhite from "../../../image/logoWhite";
+import logoBlack from "../../../image/logoBlack";
+import { iconColorChange } from "../../../image/icons";
+
+import { useSelector, useDispatch } from "react-redux";
+import { changeColor } from "../../../redux/slice/pageSlice";
 
 const StyledMainPage = styled.div`
   display: flex;
@@ -13,7 +20,7 @@ const StyledMainPage = styled.div`
   align-items: center;
   width: 100%;
   height: 66px;
-  background-color: #1d2126;
+  background-color: ${(props) => (props.color ? "#1d2126" : "#FFF6F6")};
 
   .leftBlock {
     margin-left: 10px;
@@ -28,6 +35,13 @@ const StyledMainPage = styled.div`
     margin-right: 10px;
     width: 50%;
   }
+
+  .iconChangeColor {
+    cursor: pointer;
+    margin-right: 10px;
+    display: flex;
+    align-items: center;
+  }
 `;
 
 const StyledButton = styled.button`
@@ -36,7 +50,7 @@ const StyledButton = styled.button`
   flex-wrap: nowrap;
   justify-content: space-between;
   align-items: center;
-  background: #00204f;
+  background: ${(props) => (props.color ? "#00204f" : "#404BD9")};
   border: 2px solid #256dd9;
   border-radius: 32px;
   height: 32px;
@@ -60,27 +74,37 @@ const StyledButton = styled.button`
   }
 `;
 
-function Header() {
+const Header = () => {
+  const dispatch = useDispatch();
+  const color = useSelector((state) => state.pageReducer.color);
+
+  const changeColors = () => {
+    dispatch(changeColor());
+  };
+
   return (
     <>
-      <StyledMainPage>
+      <StyledMainPage color={color}>
         <div className="leftBlock">
-          <Link to="/">{logoWhite}</Link>
+          <Link to="/">{color ? logoWhite : logoBlack}</Link>
         </div>
         <div className="rightBlock">
-          <StyledButton>
+          <StyledButton color={color}>
             <div className="svgBlock">{window}</div>
             <a href="https://prtscr.site/download" className="link">
               Free download for window
             </a>
           </StyledButton>
-          <StyledButton>
+          <StyledButton color={color}>
             <span className="text">Profile</span>
           </StyledButton>
+          <div className="iconChangeColor" onClick={() => changeColors()}>
+            {iconColorChange}
+          </div>
         </div>
       </StyledMainPage>
     </>
   );
-}
+};
 
 export { Header };
