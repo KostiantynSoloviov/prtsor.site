@@ -4,6 +4,8 @@ import React from "react";
 import { iconNextPage, iconPrewPage } from "../../../../../../../image/icons";
 import { useSelector } from "react-redux";
 
+import { SVGgeneral } from "../../../../../../../utils/generalSprite";
+
 const StyledPagination = styled.div`
   display: flex;
   flex-direction: row;
@@ -73,7 +75,10 @@ const Pagination = ({
     <>
       <StyledPagination color={color}>
         <div className="ArrowPage" onClick={() => prewPage()} color={color}>
-          {iconPrewPage}
+          <SVGgeneral
+            id="iconPrewPage"
+            style={{ fill: color ? "#FFFFFF" : "#21223E" }}
+          />
         </div>
         <div className="paginationNumber">
           <div className="pageItems">
@@ -91,7 +96,10 @@ const Pagination = ({
           </div>
         </div>
         <div className="ArrowPage" onClick={() => nextPage()} color={color}>
-          {iconNextPage}
+          <SVGgeneral
+            id="iconNextPage"
+            style={{ fill: color ? "#FFFFFF" : "#21223E" }}
+          />
         </div>
       </StyledPagination>
     </>

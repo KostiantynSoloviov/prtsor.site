@@ -2,9 +2,9 @@ import styled from "styled-components";
 import React, { useEffect, useState } from "react";
 import { Card } from "./components/Card";
 import { Pagination } from "./components/Pagination";
-import { iconRefresh } from "../../../../../../image/icons";
 import { useSelector, useDispatch } from "react-redux";
 import { CardVarianTwo } from "./components/CardVariantTwo";
+import { SVGgeneral } from "../../../../../../utils/generalSprite";
 
 const StyledMainCrdBlock = styled.div`
   .cardVariantTwo {
@@ -84,8 +84,6 @@ const MainCrdBlock = ({ imageData }) => {
 
   const addDataPerPage = () => setDataPerPage((prev) => prev + 3);
 
-  console.log(searchTypes);
-
   return (
     <>
       <StyledMainCrdBlock color={color}>
@@ -134,7 +132,7 @@ const MainCrdBlock = ({ imageData }) => {
           <div className="divider"></div>
           <button className="buttonRefresh" onClick={() => addDataPerPage()}>
             <span>Показать еще</span>
-            {iconRefresh}
+            <SVGgeneral id="iconRefresh" />
           </button>
         </div>
       </StyledMainCrdBlock>
