@@ -77,7 +77,7 @@ const Footer = () => {
       <StyledFooterPage color={color}>
         <div className="mainInformBlock">
           <div className="informBlockButton">
-            <Link className="link" to="/">
+            <Link className="link" to="/about">
               <button className="informButton">About</button>
             </Link>
             <span className="linkSeparator"></span>
