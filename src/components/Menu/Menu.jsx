@@ -46,6 +46,10 @@ const StyledMenuBlock = styled.div`
       fill: white !important;
     }
   }
+
+  .link {
+    text-decoration: none;
+  }
 `;
 
 const StyledMenu = styled.div`
@@ -180,25 +184,27 @@ function Menu() {
             </StyledButton>
           </Link>
         </StyledMenu>
-        <button
-          color={color}
-          className="buttonCollage"
-          onClick={() => setMenuType("Collage")}
-        >
-          <div className="svgBlock" color={color}>
-            {menuType === "Collage" ? (
-              <SVGgeneral id="iconCollageActive" />
-            ) : (
-              <SVGgeneral
-                id="iconCollage"
-                style={{
-                  stroke: color ? "#FFFFFF" : "#21223E",
-                }}
-              />
-            )}
-          </div>
-          <span className="text">Collage</span>
-        </button>
+        <Link className="link" to="/collage">
+          <button
+            color={color}
+            className="buttonCollage"
+            onClick={() => setMenuType("Collage")}
+          >
+            <div className="svgBlock" color={color}>
+              {menuType === "Collage" ? (
+                <SVGgeneral id="iconCollageActive" />
+              ) : (
+                <SVGgeneral
+                  id="iconCollage"
+                  style={{
+                    stroke: color ? "#FFFFFF" : "#21223E",
+                  }}
+                />
+              )}
+            </div>
+            <span className="text">Collage</span>
+          </button>
+        </Link>
       </StyledMenuBlock>
     </>
   );

@@ -16,7 +16,7 @@ const StyledTableGroupBlock = styled.div`
     justify-content: space-between;
     align-items: center;
     margin: 32px 0 24px 0;
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
@@ -34,12 +34,12 @@ const StyledTableGroupBlock = styled.div`
     font-size: 13px;
     line-height: 17px;
 
-    color: #ffffff;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
 
     height: 33px;
     width: 132px;
     border-radius: 32px;
-    background-color: #21223e;
+    background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
     border: 1px solid #404bd9;
   }
 
@@ -74,7 +74,7 @@ const StyledTableGroupBlock = styled.div`
     }
 
     &:nth-child(2n + 1) {
-      background-color: #373854;
+      background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
     }
   }
 
@@ -135,7 +135,7 @@ const StyledTableGroupBlock = styled.div`
     font-size: 13px;
     line-height: 17px;
 
-    color: #ffffff;
+    color: ${(props) => (props.color ? "#ffffff" : "#21223E")};
   }
 
   .arrowButtonBlock {
@@ -147,10 +147,10 @@ const StyledTableGroupBlock = styled.div`
   }
 `;
 
-const TableGroup = ({ dataBaseTableUser, createGroups }) => {
+const TableGroup = ({ dataBaseTableGroup, createGroups }) => {
   const color = useSelector((state) => state.pageReducer.color);
   const [openCard, setOpenCard] = useState(false);
-  const [data, setData] = useState(dataBaseTableUser);
+  const [data, setData] = useState(dataBaseTableGroup);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
 
@@ -178,22 +178,31 @@ const TableGroup = ({ dataBaseTableUser, createGroups }) => {
           <button className="addGroup" onClick={() => createGroups()}>
             <SVGgeneral
               id="iconContactGroup"
-              style={{ paddingRight: 7, height: 12, width: 17 }}
+              style={{
+                paddingRight: 7,
+                height: 12,
+                width: 17,
+                fill: color ? "#FFFFFF" : "#21223E",
+              }}
             />
             <span>Add group</span>
           </button>
         </div>
-        <div className="tableGroupMainBlock">
+        <div className="tableGroupMainBlock" color={color}>
           {currentData &&
             currentData.map((item) => {
               return (
-                <div className="tableGroupBlock">
+                <div className="tableGroupBlock" color={color}>
                   <div className="tableGroupNameBlock">
                     <SVGgeneral
                       id="iconEventAvatar"
-                      style={{ fill: "#8C8EB0", height: 32, paddingLeft: 10 }}
+                      style={{
+                        fill: color ? "#8C8EB0" : "#F5A8A8",
+                        height: 32,
+                        paddingLeft: 10,
+                      }}
                     />
-                    <span className="textName">{item.user.name}</span>
+                    <span className="textName">{item.group}</span>
                   </div>
                   <div className="arrowButtonBlock">
                     <div className="arrowButtonBlockText">Show members</div>

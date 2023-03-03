@@ -10,6 +10,7 @@ import { MainBlock } from './components/CenterBlock/components/MainBlock/MainBlo
 import { Setting } from './components/CenterBlock/components/Setting/Setting';
 import { Events } from './components/CenterBlock/components/Events/Events';
 import { Contacts } from './components/CenterBlock/components/Contacts/Contacts';
+import { Collage } from './components/Collage/Collage';
 
 function App() {
 
@@ -31,6 +32,8 @@ function App() {
           <Route path="events" element={<Events />} />
           <Route path="contacts" element={<Contacts />} />
         </Route>
+        <Route path="/collage" element={<Collage />} />
+
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />

@@ -107,6 +107,78 @@ const StyledTagsBlock = styled.div`
     color: ${(props) => (props.color ? "white" : "#21223E")};
   }
 
+  .menuListBlock {
+    position: absolute;
+    height: 649px;
+    width: 912px;
+    right: 290px;
+    border-radius: 16px;
+    opacity: 1;
+    background-color: #373854;
+    border: 1px solid #505169;
+    z-index: 1;
+
+    .menuListMainBlock {
+      padding: 20px 32px 2px 32px;
+    }
+
+    .menuTitleBlock {
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 23px;
+
+      color: #ffffff;
+    }
+
+    .headerBlock {
+      height: 33px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .buttonAces {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+
+      margin-right: 12px;
+      height: 33px;
+      width: 127px;
+      background: #c78d35;
+      border-radius: 32px;
+      border: none;
+      cursor: pointer;
+    }
+
+    .menuButtonGroup {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .buttonNewTag {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+
+      width: 140px;
+      height: 33px;
+      background: #35c789;
+      border-radius: 32px;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
   .text {
     font-family: "Segoe UI";
     font-style: normal;
@@ -159,6 +231,7 @@ const TagItem = ({ onClose, label, id, color }) => {
 function TagsBlock({ sliderData }) {
   const [tabs, setTabs] = useState(sliderData);
   const color = useSelector((state) => state.pageReducer.color);
+  const [openMenu, setOpenMenu] = useState(false);
 
   const deleteTag = (item) => {
     setTabs((tabs) => {
@@ -182,7 +255,10 @@ function TagsBlock({ sliderData }) {
               </div>
             </div>
             <Menu className="menu" color={color}>
-              <MenuButton className="menuButton">
+              <MenuButton
+                className="menuButton"
+                onClick={() => setOpenMenu(!openMenu)}
+              >
                 <div className="buttonMenu">
                   <span>All tags</span>
                   <div>
@@ -193,14 +269,30 @@ function TagsBlock({ sliderData }) {
                   </div>
                 </div>
               </MenuButton>
-              <MenuList className="menuList">
-                <MenuItem className="menuItem">Download</MenuItem>
-                <MenuItem className="menuItem">Create a Copy</MenuItem>
-                <MenuItem className="menuItem">Mark as Draft</MenuItem>
-              </MenuList>
             </Menu>
           </div>
         </div>
+        {openMenu ? (
+          <div className="menuListBlock">
+            <div className="menuListMainBlock">
+              <div className="headerBlock">
+                <div className="menuTitleBlock">
+                  <span>All my tags</span>
+                </div>
+                <div className="menuButtonGroup">
+                  <button className="buttonAces">
+                    <SVGgeneral id="access" style={{}} />
+                    <span>Give access</span>
+                  </button>
+                  <button className="buttonNewTag">
+                    <SVGgeneral id="newTag" style={{}} />
+                    <span> Add new tags</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        ) : null}
         <div className="tags">
           <>
             {tabs.map((item) => {

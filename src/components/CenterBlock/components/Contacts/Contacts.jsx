@@ -4,13 +4,13 @@ import { SVGgeneral } from "../../../../utils/generalSprite";
 import { TableUser } from "./components/TableUser";
 import { TableGroup } from "./components/TableGroup";
 import { dataBaseTableUser } from "./components/dataBaseTable";
-
+import { dataBaseTableGroup } from "./components/dataBaseTable";
 import { useSelector } from "react-redux";
 
 const StyledContactsPage = styled.div`
   width: 944px;
   border-radius: 20px;
-  background-color: #21223e;
+  background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
   margin-bottom: 100px;
 
   .contactModal {
@@ -20,8 +20,9 @@ const StyledContactsPage = styled.div`
     left: 530px;
     top: 346px;
     border-radius: 16px;
-    background-color: #373854;
-    border: 1px solid #505169;
+    background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
+    border: ${(props) =>
+      props.color ? `1px solid #505169` : `1px solid #FBEBEB`};
 
     .contactModalMainBlock {
       padding: 20px;
@@ -32,7 +33,7 @@ const StyledContactsPage = styled.div`
       font-size: 17px;
       line-height: 23px;
 
-      color: #ffffff;
+      color: ${(props) => (props.color ? "#ffffff" : "#21223E")};
     }
 
     .contactInputWrapper {
@@ -119,7 +120,7 @@ const StyledContactsPage = styled.div`
       font-weight: 350;
       font-size: 15px;
       line-height: 22px;
-      color: white;
+      color: ${(props) => (props.color ? "#ffffff" : "#21223E")};
 
       .buttonCancel {
         display: flex;
@@ -132,7 +133,7 @@ const StyledContactsPage = styled.div`
         width: 84px;
         border-radius: 32px;
         padding: 10px 32px 10px 32px;
-        background-color: #373854;
+        background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
       }
 
       .buttonOk {
@@ -165,7 +166,7 @@ const StyledContactsPage = styled.div`
   }
 
   .headerContactText {
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
@@ -255,7 +256,7 @@ const StyledContactsPage = styled.div`
     height: 102px;
     width: 864px;
     border-radius: 12px;
-    background-color: #373854;
+    background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
 
     .activeContactButton {
       display: flex;
@@ -288,9 +289,9 @@ const StyledContactsPage = styled.div`
 
       border-radius: 32px;
       padding: 10px 24px 10px 24px;
-      background-color: #373854;
+      background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
       border: 1px solid #404bd9;
-      color: white;
+      color: ${(props) => (props.color ? "white" : "#21223E")};
     }
 
     .textButton {
@@ -421,7 +422,10 @@ const Contacts = () => {
               }
               onClick={() => setControl("user")}
             >
-              <SVGgeneral id="iconContactUser" />
+              <SVGgeneral
+                id="iconContactUser"
+                style={{ fill: color ? "#FFFFFF" : "#21223E" }}
+              />
               <span className="textButton">All Contacts</span>
               <span>{dataBaseTableUser ? dataBaseTableUser.length : ""}</span>
             </button>
@@ -431,7 +435,10 @@ const Contacts = () => {
               }
               onClick={() => setControl("group")}
             >
-              <SVGgeneral id="iconContactGroup" />
+              <SVGgeneral
+                id="iconContactGroup"
+                style={{ fill: color ? "#FFFFFF" : "#21223E" }}
+              />
               <span className="textButton">All Groups</span>
               <span>12</span>
             </button>
@@ -441,7 +448,7 @@ const Contacts = () => {
           )}
           {control === "group" && (
             <TableGroup
-              dataBaseTableUser={dataBaseTableUser}
+              dataBaseTableGroup={dataBaseTableGroup}
               createGroups={createGroups}
             />
           )}

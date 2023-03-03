@@ -11,7 +11,7 @@ import { useSelector } from "react-redux";
 const StyledTableUserBlock = styled.div`
   .tableUserMainText {
     margin: 32px 0 24px 0;
-    color: white;
+    color: ${(props) => (props.color ? "white" : "#21223E")};
     font-weight: 600;
     font-size: 24px;
     line-height: 32px;
@@ -75,7 +75,7 @@ const StyledTableUserBlock = styled.div`
     }
 
     .textMail {
-      color: #ffffff;
+      color: ${(props) => (props.color ? "white" : "#21223E")};
     }
 
     .textName {
@@ -83,7 +83,7 @@ const StyledTableUserBlock = styled.div`
     }
 
     &:nth-child(2n + 1) {
-      background-color: #373854;
+      background-color: ${(props) => (props.color ? "#373854" : "#FFFFFF")};
     }
   }
 
@@ -166,7 +166,11 @@ const TableUser = ({ dataBaseTableUser }) => {
                   <div className="tableUserNameBlock">
                     <SVGgeneral
                       id="iconEventAvatar"
-                      style={{ fill: "#8C8EB0", height: 32, paddingLeft: 10 }}
+                      style={{
+                        fill: color ? "#8C8EB0" : "#F5A8A8",
+                        height: 32,
+                        paddingLeft: 10,
+                      }}
                     />
                     <span className="textName">{item.user.name}</span>
                   </div>

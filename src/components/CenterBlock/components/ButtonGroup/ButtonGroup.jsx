@@ -233,13 +233,13 @@ function ButtonGroup() {
                   className="menuItem"
                   onClick={() => changeView("ViewVariant2")}
                 >
-                  ViewVariant2
+                  View all
                 </MenuItem>
                 <MenuItem
                   className="menuItem"
                   onClick={() => changeView("ViewVariant3")}
                 >
-                  ViewVariant3
+                  View time
                 </MenuItem>
               </MenuList>
             </Menu>

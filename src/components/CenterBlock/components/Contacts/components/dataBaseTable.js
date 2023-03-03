@@ -62,3 +62,36 @@ export const dataBaseTableUser = [
         }
     },
 ];
+
+export const dataBaseTableGroup = [
+    {
+        id: 0,
+        group: "Group 8",
+    },
+    {
+        id: 1,
+        group: "Group 7",
+    }, {
+        id: 2,
+        group: "Group 6",
+    }, {
+        id: 3,
+        group: "Group 5",
+    },
+    {
+        id: 4,
+        group: "Group 4",
+    },
+    {
+        id: 5,
+        group: "Group 3",
+    },
+    {
+        id: 6,
+        group: "Group 2",
+    },
+    {
+        id: 7,
+        group: "Group 1",
+    },
+]
