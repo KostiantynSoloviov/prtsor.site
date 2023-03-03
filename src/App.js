@@ -9,6 +9,7 @@ import { About } from './pages/About/About';
 import { MainBlock } from './components/CenterBlock/components/MainBlock/MainBlock';
 import { Setting } from './components/CenterBlock/components/Setting/Setting';
 import { Events } from './components/CenterBlock/components/Events/Events';
+import { Contacts } from './components/CenterBlock/components/Contacts/Contacts';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
           <Route path="" element={<MainBlock />} />
           <Route path="setting" element={<Setting />} />
           <Route path="events" element={<Events />} />
+          <Route path="contacts" element={<Contacts />} />
         </Route>
         <Route path="/about" element={<About />} />
       </Routes>

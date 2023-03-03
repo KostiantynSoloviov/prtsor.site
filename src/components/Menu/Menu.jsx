@@ -125,22 +125,24 @@ function Menu() {
               <span className="text">Screenshots</span>
             </StyledButton>
           </Link>
-          <StyledButton onClick={() => setMenuType("Contact")} color={color}>
-            <div className="svgBlock">
-              {menuType === "Contact" ? (
-                <SVGgeneral
-                  id="iconContactActive"
-                  style={{ fill: "#404BD9" }}
-                />
-              ) : (
-                <SVGgeneral
-                  id="iconContact"
-                  style={{ fill: color ? "#FFFFFF" : "#21223E" }}
-                />
-              )}
-            </div>
-            <span className="text">Contact</span>
-          </StyledButton>
+          <Link className="link" to="/contacts">
+            <StyledButton onClick={() => setMenuType("Contact")} color={color}>
+              <div className="svgBlock">
+                {menuType === "Contact" ? (
+                  <SVGgeneral
+                    id="iconContactActive"
+                    style={{ fill: "#404BD9" }}
+                  />
+                ) : (
+                  <SVGgeneral
+                    id="iconContact"
+                    style={{ fill: color ? "#FFFFFF" : "#21223E" }}
+                  />
+                )}
+              </div>
+              <span className="text">Contact</span>
+            </StyledButton>
+          </Link>
           <Link className="link" to="/events">
             <StyledButton onClick={() => setMenuType("Event")} color={color}>
               <div className="svgBlock">
