@@ -3,20 +3,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { SVGgeneral } from "../../../../../../../utils/generalSprite";
 
-import {
-  zoomButton,
-  iconHome,
-  iconPencil,
-  iconCopyField,
-  iconShare,
-  iconDownload,
-  iconShareGroup,
-  iconShow,
-  iconDelete,
-  iconEditTag,
-  iconLink,
-  iconAvatar,
-} from "../../../../../../../image/icons";
+import { iconEditTag, iconLink } from "../../../../../../../image/icons";
 
 const StyledCard = styled.div`
   display: flex;
@@ -354,7 +341,12 @@ const Card = ({
       <StyledCard color={color}>
         <div className="image">
           <img className="img" src={scr} alt={alt} />
-          <button className="zoomButton">{zoomButton}</button>
+          <button className="zoomButton">
+            <SVGgeneral
+              id="zoomButton"
+              style={{ fill: color ? "#282945" : "#F5A8A8" }}
+            />
+          </button>
           <div className="imageChangeBlock">
             <button className="iconDiv">
               <SVGgeneral id="iconHome" />
@@ -362,7 +354,9 @@ const Card = ({
             <button className="iconDiv">
               <SVGgeneral id="iconPencil" />
             </button>
-            <button className="iconDiv"></button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconCopyField" />
+            </button>
             <button className="iconDiv">
               <SVGgeneral id="iconShare" />
             </button>
@@ -404,7 +398,15 @@ const Card = ({
                   return (
                     <div className="cardCentreMainBlock">
                       <div className="cardCentreUser">
-                        <div className="cardCentreAvatar">{iconAvatar}</div>
+                        <div className="cardCentreAvatar">
+                          <SVGgeneral
+                            id="iconEventAvatar"
+                            style={{
+                              fill: color ? "#8C8EB0" : "#F5A8A8",
+                              height: 24,
+                            }}
+                          />
+                        </div>
                         <div>
                           <div className="cardCentreName">
                             <button className="buttonCentreUser">

@@ -50,6 +50,82 @@ const StyledMainCrdBlock = styled.div`
 
     margin-bottom: 30px;
   }
+
+  .cardBlockVariantThree {
+    margin-top: 48px;
+
+    .mainDateBlock {
+      margin-bottom: 11px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+      align-items: center;
+      height: 33px;
+    }
+
+    .dateCard {
+      margin-left: 30px;
+      font-weight: 600;
+      font-size: 17px;
+      line-height: 23px;
+
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+
+    .buttonGroup {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: flex-end;
+      align-items: center;
+      width: 400px;
+    }
+
+    .buttonDate {
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+      cursor: pointer;
+      border: ${(props) =>
+        props.color ? `1px solid #373854` : `1px solid #EFEFEF`};
+      height: 33px;
+      width: 107px;
+      border-radius: 32px;
+
+      border-radius: 32px;
+      background-color: ${(props) => (props.color ? "#21223e" : "#FBEBEB")};
+    }
+
+    .underButton {
+      margin: 0 10px 0 10px;
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
+      height: 17px;
+      width: 13px;
+
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+
+    .allDate {
+      margin: 0 20px 0 24px;
+      font-weight: 400;
+      font-size: 13px;
+      line-height: 17px;
+      text-decoration-line: underline;
+
+      color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+  }
 `;
 
 const MainCrdBlock = ({ imageData }) => {
@@ -119,6 +195,42 @@ const MainCrdBlock = ({ imageData }) => {
                 />
               );
             })}
+          </div>
+        )}
+        {currentData && searchTypes === "ViewVariant3" && (
+          <div className="cardBlockVariantThree">
+            <div className="mainDateBlock">
+              <div className="dateCard">
+                <span>04 April 2021</span>
+              </div>
+              <div className="buttonGroup">
+                <button className="buttonDate">04-04-2021</button>
+                <div className="underButton">
+                  <span>—</span>
+                </div>
+                <button className="buttonDate">04-04-2021</button>
+                <div className="allDate">
+                  <span>All dates</span>
+                </div>
+              </div>
+            </div>
+            <div className="divider" style={{ margin: 0 }}></div>
+            <div className="cardVariantTwo">
+              {currentData.map((item) => {
+                return (
+                  <CardVarianTwo
+                    tags={item.card.tags}
+                    scr={item.scr}
+                    alt={item.alt}
+                    titlePageTag={item.card.titlePageTag}
+                    textPageTag={item.card.textPageTag}
+                    users={item.card.users}
+                    date={item.date}
+                    time={item.time}
+                  />
+                );
+              })}
+            </div>
           </div>
         )}
         <div className="paginationBlock" color={color}>
