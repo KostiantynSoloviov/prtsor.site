@@ -7,8 +7,9 @@ import { useState } from "react";
 import { tagsData } from "../../imageData";
 
 import { useSelector } from "react-redux";
-
+import { DeleteBlock } from "./components/DeleteBlock";
 import { SVGgeneral } from "../../../../../../utils/generalSprite";
+import { TagsMenu } from "./components/TagMenu/TagsMenu";
 
 const StyledTagsBlock = styled.div`
   height: 120px;
@@ -102,212 +103,6 @@ const StyledTagsBlock = styled.div`
     align-items: center;
   }
 
-  .menuItem {
-    cursor: pointer;
-    background-color: ${(props) => (props.color ? "#1a1b2e" : "#FFFFFF")};
-    height: 30px;
-    border: ${(props) => (props.color ? "none" : `1px solid #FBEBEB`)};
-    color: ${(props) => (props.color ? "white" : "#21223E")};
-  }
-
-  .menuListBlock {
-    position: absolute;
-    height: 649px;
-    width: 912px;
-    left: 17px;
-    top: 55px;
-    border-radius: 16px;
-    opacity: 1;
-    background-color: #373854;
-    border: 1px solid #505169;
-    z-index: 1;
-
-    .menuListMainBlock {
-      padding: 20px 32px 2px 32px;
-    }
-
-    .menuTitleBlock {
-      font-weight: 600;
-      font-size: 17px;
-      line-height: 23px;
-
-      color: #ffffff;
-    }
-
-    .headerBlock {
-      height: 33px;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .checkboxContainer {
-      display: grid;
-      grid-template-columns: 220px 220px 220px;
-      grid-template-rows: 24px;
-      grid-gap: 10px;
-      justify-content: space-between;
-      align-items: baseline;
-      height: 820px;
-      margin-top: 32px;
-      height: 478px;
-    }
-
-    .checkboxBlock {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: space-between;
-      align-items: center;
-      width: 220px;
-      height: 24px;
-    }
-
-    .checkboxCheckBlock {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: flex-start;
-      align-items: center;
-    }
-
-    .checkboxText {
-      margin-left: 25px;
-      font-weight: 600;
-      font-size: 13px;
-      line-height: 17px;
-
-      color: #ffffff;
-    }
-
-    .settingsBlock {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .buttonInput {
-      border: none;
-      background-color: #373854;
-    }
-
-    .inputSettingsText {
-      margin-right: 4px;
-      font-weight: 700;
-      font-size: 14px;
-      line-height: 19px;
-
-      text-align: right;
-
-      color: #ffffff;
-    }
-
-    .container {
-      display: block;
-      position: relative;
-      cursor: pointer;
-
-      font-size: 22px;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
-      user-select: none;
-    }
-
-    .container input {
-      position: absolute;
-      opacity: 0;
-      cursor: pointer;
-      height: 0;
-      width: 0;
-    }
-
-    .checkmark {
-      position: absolute;
-      top: -7px;
-      left: 0;
-      height: 16px;
-      width: 16px;
-      border-radius: 6px;
-      background-color: #373854;
-      border: 1px solid #5e5f78;
-    }
-
-    .container:hover input ~ .checkmark {
-      background-color: #373854;
-    }
-
-    .container input:checked ~ .checkmark {
-      background-color: #404bd9;
-    }
-
-    .checkmark:after {
-      content: "";
-      position: absolute;
-      display: none;
-    }
-
-    .container input:checked ~ .checkmark:after {
-      display: block;
-    }
-
-    .container .checkmark:after {
-      height: 8px;
-      width: 5px;
-      left: 4px;
-      top: 2px;
-
-      border: 1px solid white;
-      border-width: 0 2px 2px 0;
-      -webkit-transform: rotate(45deg);
-      -ms-transform: rotate(45deg);
-      transform: rotate(45deg);
-    }
-
-    .buttonAces {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-
-      margin-right: 12px;
-      height: 33px;
-      width: 127px;
-      background: #c78d35;
-      border-radius: 32px;
-      border: none;
-      cursor: pointer;
-    }
-
-    .menuButtonGroup {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-    }
-
-    .buttonNewTag {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: center;
-
-      width: 140px;
-      height: 33px;
-      background: #35c789;
-      border-radius: 32px;
-      border: none;
-      cursor: pointer;
-    }
-  }
-
   .text {
     font-family: "Segoe UI";
     font-style: normal;
@@ -361,12 +156,35 @@ function TagsBlock({ sliderData }) {
   const [tabs, setTabs] = useState(sliderData);
   const color = useSelector((state) => state.pageReducer.color);
   const [openMenu, setOpenMenu] = useState(false);
+  const [openDeleteBlock, setOpenDeleteBlock] = useState(false);
+  const [tagId, setTagId] = useState("");
 
   const deleteTag = (item) => {
+    setOpenDeleteBlock(true);
+    setTagId(item);
+  };
+
+  const approveDeleteBlock = () => {
     setTabs((tabs) => {
-      const newTabs = tabs.filter((_, i) => item !== i);
+      const newTabs = tabs.filter((_, i) => tagId !== i);
       return newTabs;
     });
+    setOpenDeleteBlock(false);
+  };
+  const closeDeleteBlock = () => {
+    setOpenDeleteBlock(false);
+  };
+
+  const closeModal = () => {
+    setOpenMenu(false);
+  };
+
+  const showTags = () => {
+    setOpenMenu(false);
+  };
+
+  const deleteTags = () => {
+    setTabs(null);
   };
 
   return (
@@ -400,67 +218,34 @@ function TagsBlock({ sliderData }) {
               </MenuButton>
             </Menu>
           </div>
+          {openDeleteBlock ? (
+            <DeleteBlock
+              closeDeleteBlock={closeDeleteBlock}
+              approveDeleteBlock={approveDeleteBlock}
+            />
+          ) : null}
           {openMenu ? (
-            <div className="menuListBlock">
-              <div className="menuListMainBlock">
-                <div className="headerBlock">
-                  <div className="menuTitleBlock">
-                    <span>All my tags</span>
-                  </div>
-                  <div className="menuButtonGroup">
-                    <button className="buttonAces">
-                      <SVGgeneral id="access" style={{ paddingRight: 8 }} />
-                      <span>Give access</span>
-                    </button>
-                    <button className="buttonNewTag">
-                      <SVGgeneral id="newTag" style={{ paddingRight: 8 }} />
-                      <span> Add new tags</span>
-                    </button>
-                  </div>
-                </div>
-                <div className="checkboxContainer">
-                  {tagsData &&
-                    tagsData.map(() => {
-                      return (
-                        <div className="checkboxBlock">
-                          <div className="checkboxCheckBlock">
-                            <div>
-                              <label className="container">
-                                <input type="checkbox" />
-                                <span className="checkmark"></span>
-                              </label>
-                            </div>
-                            <span className="checkboxText">Four</span>
-                          </div>
-                          <div className="settingsBlock">
-                            <div>
-                              <span className="inputSettingsText">1231</span>
-                            </div>
-                            <button className="buttonInput">
-                              <SVGgeneral id="threePoints" style={{}} />
-                            </button>
-                          </div>
-                        </div>
-                      );
-                    })}
-                </div>
-              </div>
-            </div>
+            <TagsMenu
+              closeModal={closeModal}
+              showTags={showTags}
+              deleteTags={deleteTags}
+            />
           ) : null}
         </div>
-
         <div className="tags">
           <>
-            {tabs.map((item) => {
-              return (
-                <TagItem
-                  color={color}
-                  key={item.id}
-                  label={item.label}
-                  onClose={() => deleteTag(tabs.indexOf(item))}
-                />
-              );
-            })}
+            {tabs !== null
+              ? tabs.map((item) => {
+                  return (
+                    <TagItem
+                      color={color}
+                      key={item.id}
+                      label={item.label}
+                      onClose={() => deleteTag(tabs.indexOf(item))}
+                    />
+                  );
+                })
+              : null}
           </>
         </div>
       </StyledTagsBlock>

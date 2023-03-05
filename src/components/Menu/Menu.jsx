@@ -43,7 +43,7 @@ const StyledMenuBlock = styled.div`
       width: 20px;
       height: 20px;
       margin-right: 10px;
-      fill: white !important;
+      fill: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
     }
   }
 
@@ -94,7 +94,6 @@ const StyledButton = styled.button`
     width: 20px;
     height: 20px;
     margin-right: 10px;
-    fill: black;
   }
 `;
 
@@ -192,7 +191,13 @@ function Menu() {
           >
             <div className="svgBlock" color={color}>
               {menuType === "Collage" ? (
-                <SVGgeneral id="iconCollageActive" />
+                <SVGgeneral
+                  id="iconCollage"
+                  style={{
+                    fill: "black",
+                    stroke: color ? "#FFFFFF" : "#21223E",
+                  }}
+                />
               ) : (
                 <SVGgeneral
                   id="iconCollage"

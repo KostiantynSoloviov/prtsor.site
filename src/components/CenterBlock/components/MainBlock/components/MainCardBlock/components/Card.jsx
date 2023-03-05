@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import React from "react";
 import { useSelector } from "react-redux";
+import { SVGgeneral } from "../../../../../../../utils/generalSprite";
 
 import {
   zoomButton,
@@ -351,18 +352,32 @@ const Card = ({
   return (
     <>
       <StyledCard color={color}>
-        <div class="image">
+        <div className="image">
           <img className="img" src={scr} alt={alt} />
           <button className="zoomButton">{zoomButton}</button>
           <div className="imageChangeBlock">
-            <button className="iconDiv">{iconHome}</button>
-            <button className="iconDiv">{iconPencil}</button>
-            <button className="iconDiv">{iconCopyField}</button>
-            <button className="iconDiv">{iconShare}</button>
-            <button className="iconDiv">{iconDownload}</button>
-            <button className="iconDiv">{iconShareGroup}</button>
-            <button className="iconDiv">{iconShow}</button>
-            <button className="iconDiv">{iconDelete}</button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconHome" />
+            </button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconPencil" />
+            </button>
+            <button className="iconDiv"></button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconShare" />
+            </button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconDownload" />
+            </button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconShareGroup" />
+            </button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconShow" />
+            </button>
+            <button className="iconDiv">
+              <SVGgeneral id="iconDelete" />
+            </button>
           </div>
         </div>
         <div className="card" color={color}>

@@ -119,7 +119,7 @@ const CardVarianTwo = ({
   return (
     <>
       <StyledCard>
-        <div class="image">
+        <div className="image">
           <img className="img" src={scr} alt={alt} />
           <button className="zoomButton">{iconZoomButtonSmall}</button>
           <div className="imageChangeBlock">

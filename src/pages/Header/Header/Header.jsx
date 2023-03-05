@@ -32,15 +32,27 @@ const StyledMainPage = styled.div`
     flex-direction: row;
     flex-wrap: nowrap;
     justify-content: flex-end;
+    align-items: center;
     margin-right: 10px;
     width: 50%;
   }
 
   .iconChangeColor {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+
+    height: 24px;
+    width: 24px;
+    border-radius: 50%;
     cursor: pointer;
     margin-right: 10px;
-    display: flex;
-    align-items: center;
+  }
+
+  .iconChangeColor:hover {
+    background-color: #2b343e;
   }
 `;
 
@@ -99,7 +111,17 @@ const Header = () => {
             <span className="text">Profile</span>
           </StyledButton>
           <div className="iconChangeColor" onClick={() => changeColors()}>
-            {iconColorChange}
+            {color ? (
+              <SVGgeneral
+                id="iconWhiteTheme"
+                style={{ width: 16, height: 16 }}
+              />
+            ) : (
+              <SVGgeneral
+                id="iconWhiteTheme"
+                style={{ width: 16, height: 16 }}
+              />
+            )}
           </div>
         </div>
       </StyledMainPage>
