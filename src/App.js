@@ -12,20 +12,26 @@ import { Events } from './components/CenterBlock/components/Events/Events';
 import { Contacts } from './components/CenterBlock/components/Contacts/Contacts';
 import { Collage } from './components/Collage/Collage';
 
+const StyledMainPage = styled.div`
+  width: 100%;
+`
+
 function App() {
 
   return (
-    <>
+
+    <StyledMainPage >
+
       <Header />
       {/* <Routes> */}
       {/* <Route path="/" element={<MainPage />} /> */}
       {/* <Route path="/about" element={<About />} /> */}
       {/* <Route path="/contacts" element={<Contact />} />
-                        <Route path="/category/:name" element={<Category />} />
-                        <Route path="/meal/:id" element={<Recipe />} />
-                        <Route path="*" element={<NotFound />} /> */}
+                          <Route path="/category/:name" element={<Category />} />
+                          <Route path="/meal/:id" element={<Recipe />} />
+                          <Route path="*" element={<NotFound />} /> */}
       {/* </Routes> */}
-      <Routes>
+      <Routes >
         <Route path="/" exact element={<MainPage />}>
           <Route path="" element={<MainBlock />} />
           <Route path="setting" element={<Setting />} />
@@ -37,7 +43,8 @@ function App() {
         <Route path="/about" element={<About />} />
       </Routes>
       <Footer />
-    </>
+    </StyledMainPage>
+
   );
 }
 

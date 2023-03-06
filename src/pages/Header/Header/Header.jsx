@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import window from "../../../image/window";
 
 import { SVGgeneral } from "../../../utils/generalSprite";
+import { SmallMenu } from "../../../components/Menu/MenuSmallSize";
 
 import logoWhite from "../../../image/logoWhite";
 import logoBlack from "../../../image/logoBlack";
-import { iconColorChange } from "../../../image/icons";
 
 import { useSelector, useDispatch } from "react-redux";
 import { changeColor } from "../../../redux/slice/pageSlice";
@@ -38,6 +38,7 @@ const StyledMainPage = styled.div`
   }
 
   .iconChangeColor {
+    position: relative;
     display: flex;
     flex-direction: column;
     flex-wrap: nowrap;
@@ -89,6 +90,9 @@ const StyledButton = styled.button`
 const Header = () => {
   const dispatch = useDispatch();
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
+
+  const [openSmallMenu, setOpenSmallMenu] = useState(false);
 
   const changeColors = () => {
     dispatch(changeColor());
@@ -96,7 +100,7 @@ const Header = () => {
 
   return (
     <>
-      <StyledMainPage color={color}>
+      <StyledMainPage color={color} width={width}>
         <div className="leftBlock">
           <Link to="/">{color ? logoWhite : logoBlack}</Link>
         </div>
@@ -123,6 +127,15 @@ const Header = () => {
               />
             )}
           </div>
+          {width === "normal" ? (
+            <div
+              className="iconChangeColor"
+              onClick={() => setOpenSmallMenu(!openSmallMenu)}
+            >
+              <SVGgeneral id="iconMenuOpen" />
+              {openSmallMenu ? <SmallMenu /> : null}
+            </div>
+          ) : null}
         </div>
       </StyledMainPage>
     </>

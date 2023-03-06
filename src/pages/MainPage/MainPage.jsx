@@ -4,10 +4,14 @@ import React from "react";
 import { Menu } from "../../components/Menu/Menu";
 import { CentreBlock } from "../../components/CenterBlock/CentreBlock";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { changeWidth } from "../../redux/slice/pageSlice";
 
 const StyledMainPage = styled.div`
   display: grid;
-  grid-template-columns: 1fr 944px 1fr;
+  grid-template-columns: ${(props) =>
+    props.width === "normal" ? `1fr` : `1fr 944px 1fr`};
+  justify-content: center;
   width: 100%;
   min-height: calc(100vh - 130px);
   height: calc(100% - 130px);
@@ -19,15 +23,42 @@ const StyledLeftBlock = styled.div`
   flex-direction: row-reverse;
 `;
 
+const StyleRightBlock = styled.div`
+  background-color: ${(props) => (props.color ? "#121417" : "#FFFFFF")};
+  height: calc(100% - 130px);
+  width: 100%;
+`;
+
 const MainPage = () => {
+  const dispatch = useDispatch();
+  window.addEventListener("resize", AutoScale);
+
+  AutoScale();
+
+  function AutoScale() {
+    let width = window.screen.width;
+
+    if (width > 1200) {
+      dispatch(changeWidth("big"));
+    } else if (width <= 1200 && width > 720) {
+      dispatch(changeWidth("normal"));
+    } else if (width < 720) {
+      dispatch(changeWidth("small"));
+    }
+  }
+
+  const width = useSelector((state) => state.pageReducer.width);
   const color = useSelector((state) => state.pageReducer.color);
   return (
     <>
-      <StyledMainPage color={color}>
-        <StyledLeftBlock>
-          <Menu />
-        </StyledLeftBlock>
+      <StyledMainPage color={color} width={width}>
+        {width === "normal" ? null : (
+          <StyledLeftBlock>
+            <Menu />
+          </StyledLeftBlock>
+        )}
         <CentreBlock />
+        {width === "normal" ? null : <StyleRightBlock color={color} />}
       </StyledMainPage>
     </>
   );

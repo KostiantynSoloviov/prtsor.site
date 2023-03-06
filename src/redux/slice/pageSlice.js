@@ -6,6 +6,7 @@ const pageSlice = createSlice({
         view: "View",
         menu: "Screenshots",
         color: true,
+        width: ''
     },
     reducers: {
         togglePageView(state, action) {
@@ -16,10 +17,13 @@ const pageSlice = createSlice({
         },
         changeColor(state, action) {
             state.color = !state.color
+        },
+        changeWidth(state, action) {
+            state.width = action.payload
         }
     }
 })
 
-export const { togglePageView, togglePageMenu, changeColor } = pageSlice.actions
+export const { togglePageView, togglePageMenu, changeColor, changeWidth } = pageSlice.actions
 
 export default pageSlice.reducer

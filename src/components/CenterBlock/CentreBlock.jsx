@@ -5,6 +5,8 @@ import { Outlet } from "react-router-dom";
 import { ButtonGroup } from "./components/ButtonGroup/ButtonGroup";
 
 const StyledCentreBlock = styled.div`
+  display: grid;
+  justify-content: center;
   height: 100%;
 `;
 
