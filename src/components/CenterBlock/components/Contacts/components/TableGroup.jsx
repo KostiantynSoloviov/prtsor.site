@@ -145,10 +145,38 @@ const StyledTableGroupBlock = styled.div`
     justify-content: center;
     align-items: center;
   }
+
+  @media (max-width: 960px) {
+    .tableGroupMainText {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 27px;
+      margin-left: 12px;
+    }
+
+    .addGroup {
+      margin-right: 12px;
+    }
+
+    .tableGroupBlock {
+      height: 52px;
+      width: 324px;
+      border-radius: 4px;
+    }
+
+    .arrowButtonGroup {
+      margin-left: 20px;
+
+      .arrowButton {
+        border: none;
+      }
+    }
+  }
 `;
 
 const TableGroup = ({ dataBaseTableGroup, createGroups }) => {
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   const [openCard, setOpenCard] = useState(false);
   const [data, setData] = useState(dataBaseTableGroup);
   const [currentPage, setCurrentPage] = useState(1);
@@ -205,7 +233,9 @@ const TableGroup = ({ dataBaseTableGroup, createGroups }) => {
                     <span className="textName">{item.group}</span>
                   </div>
                   <div className="arrowButtonBlock">
-                    <div className="arrowButtonBlockText">Show members</div>
+                    {width === "small" ? null : (
+                      <div className="arrowButtonBlockText">Show members</div>
+                    )}
                     <div className="arrowButtonGroup">
                       <div
                         className="arrowButton"

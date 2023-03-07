@@ -5,6 +5,16 @@ import { SVGgeneral } from "../../../../../../../utils/generalSprite";
 
 import { iconEditTag, iconLink } from "../../../../../../../image/icons";
 
+import {
+  iconPencilMini,
+  iconCopyFieldMini,
+  iconShareMini,
+  iconDownloadMini,
+  iconShareGroupMini,
+  iconShowMini,
+  iconDeleteMini,
+} from "../../../../../../../image/icons";
+
 const StyledCard = styled.div`
   display: flex;
   flex-direction: row;
@@ -147,6 +157,54 @@ const StyledCard = styled.div`
       &::-webkit-scrollbar-thumb {
         height: 20px;
         background-color: ${(props) => (props.color ? "#373854" : "#FFDBDB")};
+      }
+    }
+
+    @media (max-width: 960px) {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+
+      .image {
+        position: relative;
+        height: 185px;
+        width: 340px;
+      }
+
+      .img {
+        border-radius: 20px;
+        max-width: 100%;
+        height: 100%;
+      }
+
+      .zoomButton {
+        cursor: pointer;
+        opacity: 0.8;
+        padding: 0;
+        width: 56px;
+        height: 56px;
+        display: flex;
+        align-items: center;
+        border-radius: 35px;
+        position: absolute;
+        top: 60px;
+        left: 120px;
+        border: none;
+      }
+
+      .imageChangeBlock {
+        display: flex;
+        align-items: center;
+        justify-content: space-evenly;
+        height: 32px;
+        width: 269px;
+        background-color: white;
+        position: absolute;
+        border-radius: 24.17977523803711px;
+        top: 140px;
+        left: 15px;
       }
     }
   }
@@ -323,6 +381,97 @@ const StyledCard = styled.div`
       margin-left: 12px;
     }
   }
+  @media (max-width: 960px) {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+    height: 525px;
+    margin-top: 20px;
+
+    .image {
+      position: relative;
+      width: 340px;
+    }
+
+    .img {
+      border-radius: 20px;
+      max-width: 100%;
+      height: 100%;
+    }
+
+    .zoomButton {
+      cursor: pointer;
+      opacity: 0.8;
+      padding: 0;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      border-radius: 35px;
+      position: absolute;
+      top: 60px;
+      left: 145px;
+      border: none;
+    }
+
+    .imageChangeBlock {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 32px;
+      width: 269px;
+      background-color: white;
+      position: absolute;
+      border-radius: 24.17977523803711px;
+      top: 140px;
+      left: 35px;
+    }
+
+    .card {
+      background-color: #121417;
+      margin-left: 0;
+      width: 340px;
+
+      .cardHeaderBlock {
+        width: 300px;
+      }
+
+      .cardHeaderGradient {
+        width: 340px;
+        background: linear-gradient(
+          180deg,
+          rgba(18, 20, 23, 0) 0%,
+          #121417 100%
+        );
+      }
+    }
+    .cardCentre {
+      width: 340px;
+
+      .cardCentreBlock {
+        width: 310px;
+      }
+
+      .cardCentreGradient {
+        width: 340px;
+        background: linear-gradient(
+          180deg,
+          rgba(18, 20, 23, 0) 0%,
+          #121417 100%
+        );
+      }
+    }
+
+    .cardFooter {
+      width: 340px;
+    }
+
+    .cardHeader {
+      width: 340px;
+    }
+  }
 `;
 
 const Card = ({
@@ -336,44 +485,66 @@ const Card = ({
   time,
 }) => {
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   return (
     <>
       <StyledCard color={color}>
-        <div className="image">
-          <img className="img" src={scr} alt={alt} />
-          <button className="zoomButton">
-            <SVGgeneral
-              id="zoomButton"
-              style={{ fill: color ? "#282945" : "#F5A8A8" }}
-            />
-          </button>
-          <div className="imageChangeBlock">
-            <button className="iconDiv">
-              <SVGgeneral id="iconHome" />
+        {width === "small" ? (
+          <div className="image">
+            <img className="img" src={scr} alt={alt} />
+            <button className="zoomButton">
+              <SVGgeneral
+                id="zoomButton"
+                style={{ fill: color ? "#282945" : "#F5A8A8", height: 56 }}
+              />
             </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconPencil" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconCopyField" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconShare" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconDownload" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconShareGroup" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconShow" />
-            </button>
-            <button className="iconDiv">
-              <SVGgeneral id="iconDelete" />
-            </button>
+            <div className="imageChangeBlock">
+              <button className="iconDiv">{iconPencilMini}</button>
+              <button className="iconDiv">{iconCopyFieldMini}</button>
+              <button className="iconDiv">{iconShareMini}</button>
+              <button className="iconDiv">{iconDownloadMini}</button>
+              <button className="iconDiv">{iconShareGroupMini}</button>
+              <button className="iconDiv">{iconShowMini}</button>
+              <button className="iconDiv">{iconDeleteMini}</button>
+            </div>
           </div>
-        </div>
+        ) : (
+          <div className="image">
+            <img className="img" src={scr} alt={alt} />
+            <button className="zoomButton">
+              <SVGgeneral
+                id="zoomButton"
+                style={{ fill: color ? "#282945" : "#F5A8A8" }}
+              />
+            </button>
+            <div className="imageChangeBlock">
+              <button className="iconDiv">
+                <SVGgeneral id="iconHome" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconPencil" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconCopyField" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconShare" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconDownload" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconShareGroup" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconShow" />
+              </button>
+              <button className="iconDiv">
+                <SVGgeneral id="iconDelete" />
+              </button>
+            </div>
+          </div>
+        )}
         <div className="card" color={color}>
           <div className="cardHeader">
             <div className="cardHeaderGradient"></div>

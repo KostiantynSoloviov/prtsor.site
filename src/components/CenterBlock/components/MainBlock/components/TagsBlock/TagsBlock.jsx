@@ -4,16 +4,14 @@ import React from "react";
 import { Menu, MenuButton } from "@chakra-ui/react";
 import { useState } from "react";
 
-import { tagsData } from "../../imageData";
-
 import { useSelector } from "react-redux";
 import { DeleteBlock } from "./components/DeleteBlock";
 import { SVGgeneral } from "../../../../../../utils/generalSprite";
 import { TagsMenu } from "./components/TagMenu/TagsMenu";
 
 const StyledTagsBlock = styled.div`
-  height: 120px;
-  width: 944px;
+  height: ${(props) => (props.width == "small" ? "183px" : "120px")};
+  width: ${(props) => (props.width == "small" ? "340px" : "944px")};
   border-radius: 20px;
   background-color: ${(props) => (props.color ? "#21223e" : "#FFF6F6")};
 
@@ -37,9 +35,17 @@ const StyledTagsBlock = styled.div`
 
   .inputWrapper {
     height: 33px;
-    width: 221px;
+    width: ${(props) => (props.width == "small" ? "300px" : "221px")};
     position: relative;
     margin-right: 20px;
+  }
+
+  .inputSmallBlock {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
   }
 
   .inputBlock {
@@ -61,7 +67,7 @@ const StyledTagsBlock = styled.div`
     border-radius: 20px;
     background-color: ${(props) => (props.color ? "#21223e" : "white")};
     height: 33px;
-    width: 221px;
+    width: ${(props) => (props.width == "small" ? "300px" : "221px")};
     padding: 0 0px 0 10px;
     font-size: 15px;
     border: ${(props) =>
@@ -113,6 +119,28 @@ const StyledTagsBlock = styled.div`
 
     margin-left: 35px;
   }
+
+  @media (max-width: 960px) {
+    .text {
+      width: 150px;
+      font-weight: 600;
+      font-size: 15px;
+      line-height: 20px;
+      color: #ffffff;
+      margin-left: 20px;
+    }
+
+    .inputWrapper {
+      margin-left: 5px;
+    }
+
+    .tags {
+      margin-top: 12px;
+      margin-left: 5px;
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
 `;
 
 const StyledTagsItem = styled.div`
@@ -132,6 +160,16 @@ const StyledTagsItem = styled.div`
   .closeButton {
     cursor: pointer;
     margin-left: 12px;
+  }
+
+  @media (max-width: 960px) {
+    font-weight: 600;
+    font-size: 11px;
+    line-height: 15px;
+    padding: 6px 16px 6px 16px;
+    color: #ffffff;
+    margin-right: 4px;
+    margin-bottom: 4px;
   }
 `;
 
@@ -155,6 +193,7 @@ const TagItem = ({ onClose, label, id, color }) => {
 function TagsBlock({ sliderData }) {
   const [tabs, setTabs] = useState(sliderData);
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   const [openMenu, setOpenMenu] = useState(false);
   const [openDeleteBlock, setOpenDeleteBlock] = useState(false);
   const [tagId, setTagId] = useState("");
@@ -189,18 +228,20 @@ function TagsBlock({ sliderData }) {
 
   return (
     <>
-      <StyledTagsBlock color={color}>
+      <StyledTagsBlock color={color} width={width}>
         <div className="tagsSearch">
           <div className="text">
             <span>Tags including image</span>
           </div>
           <div className="inputBlock">
-            <div className="inputWrapper">
-              <input type="text" className="input" placeholder="Search tag" />
-              <div className="inputIcon">
-                <SVGgeneral id="iconSearchInput" />
+            {width === "small" ? null : (
+              <div className="inputWrapper">
+                <input type="text" className="input" placeholder="Search tag" />
+                <div className="inputIcon">
+                  <SVGgeneral id="iconSearchInput" />
+                </div>
               </div>
-            </div>
+            )}
             <Menu className="menu" color={color}>
               <MenuButton
                 className="menuButton"
@@ -232,6 +273,16 @@ function TagsBlock({ sliderData }) {
             />
           ) : null}
         </div>
+        {width === "small" && (
+          <div className="inputSmallBlock">
+            <div className="inputWrapper">
+              <input type="text" className="input" placeholder="Search tag" />
+              <div className="inputIcon">
+                <SVGgeneral id="iconSearchInput" />
+              </div>
+            </div>
+          </div>
+        )}
         <div className="tags">
           <>
             {tabs !== null

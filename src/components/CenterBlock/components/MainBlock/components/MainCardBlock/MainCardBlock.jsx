@@ -14,6 +14,17 @@ const StyledMainCrdBlock = styled.div`
     grid-template-columns: 1fr 1fr 1fr;
   }
 
+  @media (max-width: 960px) {
+    .cardVariantTwo {
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: flex-start;
+      align-items: center;
+      margin-top: 20px;
+    }
+  }
+
   .paginationBlock {
     display: flex;
     flex-direction: column;
@@ -27,6 +38,12 @@ const StyledMainCrdBlock = styled.div`
     height: 2px;
     width: 944px;
     background-color: ${(props) => (props.color ? "#21223e" : "#FBEBEB")};
+  }
+
+  @media (max-width: 960px) {
+    .divider {
+      width: 340px;
+    }
   }
 
   .buttonRefresh {
@@ -62,6 +79,14 @@ const StyledMainCrdBlock = styled.div`
       justify-content: space-between;
       align-items: center;
       height: 33px;
+    }
+
+    .styleDivider {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: center;
     }
 
     .dateCard {
@@ -125,6 +150,35 @@ const StyledMainCrdBlock = styled.div`
 
       color: ${(props) => (props.color ? "white" : "#21223E")};
     }
+
+    @media (max-width: 960px) {
+      .mainDateBlock {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: center;
+        height: 80px;
+      }
+
+      .dateBlock {
+        width: 340px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .buttonGroup {
+        margin-top: 16px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        align-items: center;
+      }
+    }
   }
 `;
 
@@ -135,6 +189,7 @@ const MainCrdBlock = ({ imageData }) => {
   const searchTypes = useSelector((state) => state.pageReducer.view);
 
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
 
   const lastDataIndex = currentPage * dataPerPage;
   const firstDataIndex = lastDataIndex - dataPerPage;
@@ -200,8 +255,15 @@ const MainCrdBlock = ({ imageData }) => {
         {currentData && searchTypes === "ViewVariant3" && (
           <div className="cardBlockVariantThree">
             <div className="mainDateBlock">
-              <div className="dateCard">
-                <span>04 April 2021</span>
+              <div className="dateBlock">
+                <div className="dateCard">
+                  <span>04 April 2021</span>
+                </div>
+                {width === "small" ? (
+                  <div className="allDate">
+                    <span>All dates</span>
+                  </div>
+                ) : null}
               </div>
               <div className="buttonGroup">
                 <button className="buttonDate">04-04-2021</button>
@@ -209,12 +271,16 @@ const MainCrdBlock = ({ imageData }) => {
                   <span>—</span>
                 </div>
                 <button className="buttonDate">04-04-2021</button>
-                <div className="allDate">
-                  <span>All dates</span>
-                </div>
+                {width === "small" ? null : (
+                  <div className="allDate">
+                    <span>All dates</span>
+                  </div>
+                )}
               </div>
             </div>
-            <div className="divider" style={{ margin: 0 }}></div>
+            <div className="styleDivider">
+              <div className="divider" style={{ margin: 0 }}></div>
+            </div>
             <div className="cardVariantTwo">
               {currentData.map((item) => {
                 return (

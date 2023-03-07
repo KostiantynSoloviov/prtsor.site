@@ -32,7 +32,7 @@ function App() {
                           <Route path="*" element={<NotFound />} /> */}
       {/* </Routes> */}
       <Routes >
-        <Route path="/" exact element={<MainPage />}>
+        <Route path="" exact element={<MainPage />}>
           <Route path="" element={<MainBlock />} />
           <Route path="setting" element={<Setting />} />
           <Route path="events" element={<Events />} />

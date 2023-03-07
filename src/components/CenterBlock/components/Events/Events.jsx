@@ -9,6 +9,8 @@ import { SVGgeneral } from "../../../../utils/generalSprite";
 import { CardEvent } from "./components/CardEvent";
 import { dataBase } from "./dataBase";
 
+import { useEffect } from "react";
+
 const StyledEvents = styled.div`
   font-family: "Segoe UI";
   font-style: normal;
@@ -136,10 +138,51 @@ const StyledEvents = styled.div`
 
     margin-bottom: 30px;
   }
+
+  @media (max-width: 960px) {
+    width: 340px;
+
+    .headerEventsNotification {
+      grid-template-columns: 45px 3fr;
+    }
+
+    .iconNotification {
+      margin-left: -20px;
+    }
+
+    .mainBlockEvents {
+      padding: 20px 8px 8px 8px;
+    }
+
+    .headerEvents {
+      height: 120px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .headerEvensText {
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 27px;
+      margin: 0 0 12px 12px;
+    }
+
+    .headerEventsNotification {
+      height: 50px;
+      width: 300px;
+      border-radius: 4px;
+      padding: 8px 12px 8px 12px;
+      margin-bottom: 24px;
+    }
+  }
 `;
 
 const Events = () => {
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
 
   const [data, setData] = useState(dataBase);
   const [currentPage, setCurrentPage] = useState(1);
@@ -160,6 +203,12 @@ const Events = () => {
   const prewPage = () => setCurrentPage((prev) => prev - 1);
 
   const addDataPerPage = () => setDataPerPage((prev) => prev + 3);
+
+  useEffect(() => {
+    if (width === "small") {
+      setDataPerPage(3);
+    }
+  }, [width]);
 
   return (
     <>

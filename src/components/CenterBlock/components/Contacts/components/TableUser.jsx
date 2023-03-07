@@ -123,10 +123,28 @@ const StyledTableUserBlock = styled.div`
 
     margin-bottom: 30px;
   }
+
+  @media (max-width: 960px) {
+    .tableUserBlock {
+      height: 52px;
+      width: 324px;
+      border-radius: 4px;
+    }
+
+    .arrowButtonGroup {
+      margin-left: 20px;
+
+      .arrowButton {
+        border: none;
+      }
+    }
+  }
 `;
 
 const TableUser = ({ dataBaseTableUser }) => {
+  const [openCard, setOpenCard] = useState(false);
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   const [data, setData] = useState(dataBaseTableUser);
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(4);
@@ -153,11 +171,14 @@ const TableUser = ({ dataBaseTableUser }) => {
         <div className="tableUserMainText">
           <span>Users</span>
         </div>
-        <div className="tableUserHeader">
-          <span className="userName">Username</span>
-          <span>Email</span>
-          <span>Included in groups</span>
-        </div>
+        {width === "small" ? null : (
+          <div className="tableUserHeader">
+            <span className="userName">Username</span>
+            <span>Email</span>
+            <span>Included in groups</span>
+          </div>
+        )}
+
         <div className="tableUserMainBlock">
           {currentData &&
             currentData.map((item) => {
@@ -174,18 +195,36 @@ const TableUser = ({ dataBaseTableUser }) => {
                     />
                     <span className="textName">{item.user.name}</span>
                   </div>
-                  <div>
-                    <span className="textMail">{item.user.mail}</span>
-                  </div>
-                  <div className="tableGroupBlock">
-                    {item.user.group.map((item) => {
-                      return (
-                        <div className="tableUserGroup">
-                          <span>{item}</span>
-                        </div>
-                      );
-                    })}
-                  </div>
+                  {width === "small" ? (
+                    <div className="arrowButtonGroup">
+                      <div
+                        className="arrowButton"
+                        onClick={() => setOpenCard(!openCard)}
+                      >
+                        {openCard ? (
+                          <SVGgeneral id="arrowUp" />
+                        ) : (
+                          <SVGgeneral id="arrowDown" />
+                        )}
+                      </div>
+                    </div>
+                  ) : null}
+                  {width === "small" ? null : (
+                    <>
+                      <div>
+                        <span className="textMail">{item.user.mail}</span>
+                      </div>
+                      <div className="tableGroupBlock">
+                        {item.user.group.map((item) => {
+                          return (
+                            <div className="tableUserGroup">
+                              <span>{item}</span>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </>
+                  )}
                 </div>
               );
             })}

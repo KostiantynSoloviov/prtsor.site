@@ -6,7 +6,13 @@ import { MainCrdBlock } from "./components/MainCardBlock/MainCardBlock";
 
 import { imageData, tagsData } from "./imageData";
 
-const StyledMainBlock = styled.div``;
+const StyledMainBlock = styled.div`
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  align-items: center;
+`;
 
 function MainBlock() {
   return (

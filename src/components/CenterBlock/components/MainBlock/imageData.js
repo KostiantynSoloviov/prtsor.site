@@ -6,7 +6,7 @@ import imageProcessing from "../../../../image/image-processing.png";
 
 export const tagsData = [
     {
-        label: "My Work",
+        label: "Web",
         check: true,
         id: 0,
     },
@@ -21,12 +21,12 @@ export const tagsData = [
         id: 2,
     },
     {
-        label: "Web",
+        label: "Freestyle",
         check: false,
         id: 3,
     },
     {
-        label: "Freestyle",
+        label: "My Work",
         check: true,
         id: 4,
     },

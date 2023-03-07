@@ -20,13 +20,13 @@ const StyledCard = styled.div`
   flex-wrap: nowrap;
   justify-content: flex-start;
   align-items: center;
-  width: 301px;
+  width: ${(props) => (props.width == "small" ? "340px" : "301px")};
   height: 245px;
 
   .image {
     position: relative;
     height: 185px;
-    width: 301px;
+    width: ${(props) => (props.width == "small" ? "340px" : "301px")};
   }
 
   .img {
@@ -106,22 +106,49 @@ const StyledCard = styled.div`
       line-height: 17px;
     }
   }
+
+  @media (max-width: 960px) {
+    height: 270px;
+
+    .image {
+      height: auto;
+    }
+    .zoomButton {
+      cursor: pointer;
+      opacity: 0.8;
+      padding: 0;
+      width: 56px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      border-radius: 35px;
+      position: absolute;
+      top: 60px;
+      left: 145px;
+      border: none;
+    }
+
+    .imageChangeBlock {
+      display: flex;
+      align-items: center;
+      justify-content: space-evenly;
+      height: 32px;
+      width: 269px;
+      background-color: white;
+      position: absolute;
+      border-radius: 24.17977523803711px;
+      top: 140px;
+      left: 35px;
+    }
+  }
 `;
 
-const CardVarianTwo = ({
-  scr,
-  alt,
-  titlePageTag,
-  textPageTag,
-  tags,
-  users,
-  date,
-  time,
-}) => {
+const CardVarianTwo = ({ scr, alt, titlePageTag, textPageTag }) => {
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   return (
     <>
-      <StyledCard>
+      <StyledCard width={width}>
         <div className="image">
           <img className="img" src={scr} alt={alt} />
           <button className="zoomButton">

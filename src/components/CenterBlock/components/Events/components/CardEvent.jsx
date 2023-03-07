@@ -229,6 +229,73 @@ const StyledCardEvent = styled.div`
       margin-left: 24px;
     }
   }
+
+  @media (max-width: 960px) {
+    grid-template-columns: 48px 1fr;
+
+    .cardTextBlock {
+      width: 200px;
+    }
+    .headerTextBlock {
+      font-weight: 600;
+      font-size: 13px;
+      line-height: 16px;
+    }
+
+    .actionTextBlock {
+      font-weight: 350;
+      font-size: 13px;
+      line-height: 18px;
+    }
+
+    .mainCardEventBlock {
+      grid-template-columns: 230px 55px;
+    }
+
+    .arrowButtonGroup {
+      align-items: flex-start;
+      margin-top: 20px;
+    }
+
+    .openCardBlock {
+      .divider {
+        width: 278px;
+        margin: 0 0 12px 45px;
+      }
+
+      .openCardBlock {
+        width: 265px;
+      }
+
+      .openContentComments {
+        padding: 8px 24px 8px 24px;
+        margin: 0 0 16px 12px;
+        width: 250px;
+      }
+
+      .commentOpenCardButton {
+        margin: 0 0 16px 215px;
+      }
+
+      .openContentBlock {
+        margin: 0 0 16px 45px;
+        width: 265px;
+      }
+
+      .openContent {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+    }
+
+    .eventButtonGroup {
+      margin-left: 45px;
+      margin-bottom: 16px;
+    }
+  }
 `;
 
 const CardEvent = ({
@@ -243,7 +310,7 @@ const CardEvent = ({
   image,
 }) => {
   const [openCard, setOpenCard] = useState(false);
-
+  const width = useSelector((state) => state.pageReducer.width);
   const color = useSelector((state) => state.pageReducer.color);
 
   return (
@@ -254,8 +321,8 @@ const CardEvent = ({
             <SVGgeneral
               id="newMessage"
               style={{
-                paddingTop: 23,
-                paddingLeft: 24,
+                paddingTop: width === "small" ? 19 : 23,
+                paddingLeft: width === "small" ? 15 : 24,
                 fill: color ? "#8C8EB0" : "#F5A8A8",
               }}
             />
@@ -263,8 +330,8 @@ const CardEvent = ({
             <SVGgeneral
               id="message"
               style={{
-                paddingTop: 23,
-                paddingLeft: 24,
+                paddingTop: width === "small" ? 19 : 23,
+                paddingLeft: width === "small" ? 15 : 24,
                 fill: color ? "#8C8EB0" : "#F5A8A8",
               }}
             />
@@ -295,7 +362,9 @@ const CardEvent = ({
           </div>
           {acceptCommend ? (
             <>
-              <div className="eventButtonGroup"></div>
+              {width === "small" ? null : (
+                <div className="eventButtonGroup"></div>
+              )}
               <div className="arrowButtonGroup">
                 <button
                   className="arrowButton"
@@ -311,30 +380,32 @@ const CardEvent = ({
             </>
           ) : (
             <>
-              <div className="eventButtonGroup">
-                {!newEvent ? (
-                  <>
-                    {acceptGroup ? (
-                      <div className="eventAcceptGroup">
-                        <span>You accepted the invitation</span>
-                      </div>
-                    ) : (
-                      <div className="eventRejectGroup">
-                        <span>Rejected</span>
-                      </div>
-                    )}
-                  </>
-                ) : (
-                  <>
-                    <button className="eventButtonYes">
-                      <span>Yes</span>
-                    </button>
-                    <button className="eventButtonNo">
-                      <span>No</span>
-                    </button>
-                  </>
-                )}
-              </div>
+              {width === "small" ? null : (
+                <div className="eventButtonGroup">
+                  {!newEvent ? (
+                    <>
+                      {acceptGroup ? (
+                        <div className="eventAcceptGroup">
+                          <span>You accepted the invitation</span>
+                        </div>
+                      ) : (
+                        <div className="eventRejectGroup">
+                          <span>Rejected</span>
+                        </div>
+                      )}
+                    </>
+                  ) : (
+                    <>
+                      <button className="eventButtonYes">
+                        <span>Yes</span>
+                      </button>
+                      <button className="eventButtonNo">
+                        <span>No</span>
+                      </button>
+                    </>
+                  )}
+                </div>
+              )}
               <div className="arrowButtonGroup">
                 <button
                   className="arrowButton"
@@ -361,13 +432,26 @@ const CardEvent = ({
                 <button className="commentOpenCardButton">Reply</button>
               </>
             ) : (
-              <div className="openContentBlock">
-                <SVGgeneral
-                  id="iconEventAvatar"
-                  style={{ fill: color ? "#8C8EB0" : "#F5A8A8" }}
-                />
-                <span className="nameOpenEventCard">{user}</span>
-                <span className="mailOpenEventCard">{userMail}</span>
+              <div className="openContent">
+                <div className="openContentBlock">
+                  <SVGgeneral
+                    id="iconEventAvatar"
+                    style={{ fill: color ? "#8C8EB0" : "#F5A8A8" }}
+                  />
+                  <span className="nameOpenEventCard">{user}</span>
+                  <span className="mailOpenEventCard">{userMail}</span>
+                </div>
+
+                {width === "small" ? (
+                  <div className="eventButtonGroup">
+                    <button className="eventButtonYes">
+                      <span>Yes</span>
+                    </button>
+                    <button className="eventButtonNo">
+                      <span>No</span>
+                    </button>
+                  </div>
+                ) : null}
               </div>
             )}
           </div>

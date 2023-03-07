@@ -105,29 +105,34 @@ const Header = () => {
           <Link to="/">{color ? logoWhite : logoBlack}</Link>
         </div>
         <div className="rightBlock">
-          <StyledButton color={color}>
-            <div className="svgBlock">{window}</div>
-            <a href="https://prtscr.site/download" className="link">
-              Free download for window
-            </a>
-          </StyledButton>
-          <StyledButton color={color}>
-            <span className="text">Profile</span>
-          </StyledButton>
-          <div className="iconChangeColor" onClick={() => changeColors()}>
-            {color ? (
-              <SVGgeneral
-                id="iconWhiteTheme"
-                style={{ width: 16, height: 16 }}
-              />
-            ) : (
-              <SVGgeneral
-                id="iconWhiteTheme"
-                style={{ width: 16, height: 16 }}
-              />
-            )}
-          </div>
-          {width === "normal" ? (
+          {width === "small" ? null : (
+            <>
+              <StyledButton color={color}>
+                <div className="svgBlock">{window}</div>
+
+                <a href="https://prtscr.site/download" className="link">
+                  Free download for window
+                </a>
+              </StyledButton>
+              <StyledButton color={color}>
+                <span className="text">Profile</span>
+              </StyledButton>
+              <div className="iconChangeColor" onClick={() => changeColors()}>
+                {color ? (
+                  <SVGgeneral
+                    id="iconWhiteTheme"
+                    style={{ width: 16, height: 16 }}
+                  />
+                ) : (
+                  <SVGgeneral
+                    id="iconWhiteTheme"
+                    style={{ width: 16, height: 16 }}
+                  />
+                )}
+              </div>
+            </>
+          )}
+          {width === "normal" || width === "small" ? (
             <div
               className="iconChangeColor"
               onClick={() => setOpenSmallMenu(!openSmallMenu)}

@@ -302,10 +302,84 @@ const StyledContactsPage = styled.div`
       margin-left: -17px;
     }
   }
+
+  @media (max-width: 960px) {
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    align-items: center;
+
+    .mainContactBlock {
+      width: 324px;
+      padding: 8px;
+    }
+
+    .headerContactButton {
+      height: 32px;
+      width: 40px;
+      border-radius: 32px;
+      margin-right: 12px;
+      margin-top: 12px;
+    }
+
+    .headerContactText {
+      margin-top: 12px;
+      margin-left: 12px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 27px;
+    }
+
+    .inputBlockSmall {
+      margin-top: 16px;
+    }
+
+    .inputWrapper {
+      width: 314px;
+    }
+
+    .contactMenuBlock {
+      height: 120px;
+      width: 324px;
+      border-radius: 4px;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      justify-content: space-evenly;
+      align-items: center;
+
+      .activeContactButton {
+        margin-left: 0;
+      }
+
+      .contactButton {
+        margin-left: 0;
+      }
+    }
+    .tableUserMainText {
+      margin-left: 12px;
+      font-weight: 600;
+      font-size: 20px;
+      line-height: 27px;
+    }
+
+    .contactModal {
+      width: 340px;
+      left: 180px;
+      z-index: 5;
+
+      .contactInputWrapper {
+        width: 291px;
+      }
+    }
+  }
 `;
 
 const Contacts = () => {
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
   const [control, setControl] = useState("user");
   const [modalWindowOpen, setModalWindowOpen] = useState(false);
   const [modalWindowOpenGroups, setModalWindowOpenGroups] = useState(false);
@@ -401,19 +475,33 @@ const Contacts = () => {
 
           <div className="headerContactBlock">
             <span className="headerContactText">Contact database</span>
-            <div className="inputWrapper">
-              <input type="text" className="input" placeholder="Search tag" />
-              <div className="inputIcon">
-                <SVGgeneral id="iconSearchInput" />
+            {width === "small" ? null : (
+              <div className="inputWrapper">
+                <input type="text" className="input" placeholder="Search tag" />
+                <div className="inputIcon">
+                  <SVGgeneral id="iconSearchInput" />
+                </div>
               </div>
-            </div>
+            )}
             <button
               className="headerContactButton"
               onClick={() => addContact(!modalWindowOpen)}
             >
               <SVGgeneral id="iconAddContact" />
-              <span className="contactButtonText">Add contact</span>
+              {width === "small" ? null : (
+                <span className="contactButtonText">Add contact</span>
+              )}
             </button>
+          </div>
+          <div className="inputBlockSmall">
+            {width === "small" ? (
+              <div className="inputWrapper">
+                <input type="text" className="input" placeholder="Search tag" />
+                <div className="inputIcon">
+                  <SVGgeneral id="iconSearchInput" />
+                </div>
+              </div>
+            ) : null}
           </div>
           <div className="contactMenuBlock">
             <button

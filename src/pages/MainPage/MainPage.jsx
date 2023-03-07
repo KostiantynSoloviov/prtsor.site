@@ -10,7 +10,9 @@ import { changeWidth } from "../../redux/slice/pageSlice";
 const StyledMainPage = styled.div`
   display: grid;
   grid-template-columns: ${(props) =>
-    props.width === "normal" ? `1fr` : `1fr 944px 1fr`};
+    props.width === "normal" || props.width === "small"
+      ? `1fr`
+      : `1fr 944px 1fr`};
   justify-content: center;
   width: 100%;
   min-height: calc(100vh - 130px);
@@ -40,25 +42,29 @@ const MainPage = () => {
 
     if (width > 1200) {
       dispatch(changeWidth("big"));
-    } else if (width <= 1200 && width > 720) {
+    } else if (width <= 1200 && width > 960) {
       dispatch(changeWidth("normal"));
-    } else if (width < 720) {
+    } else if (width < 960) {
       dispatch(changeWidth("small"));
     }
   }
 
   const width = useSelector((state) => state.pageReducer.width);
   const color = useSelector((state) => state.pageReducer.color);
+
+  console.log(width);
   return (
     <>
       <StyledMainPage color={color} width={width}>
-        {width === "normal" ? null : (
+        {width === "normal" || width === "small" ? null : (
           <StyledLeftBlock>
             <Menu />
           </StyledLeftBlock>
         )}
         <CentreBlock />
-        {width === "normal" ? null : <StyleRightBlock color={color} />}
+        {width === "normal" || width === "small" ? null : (
+          <StyleRightBlock color={color} />
+        )}
       </StyledMainPage>
     </>
   );

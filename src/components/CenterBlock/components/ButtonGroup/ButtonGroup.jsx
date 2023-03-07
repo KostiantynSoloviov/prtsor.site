@@ -9,7 +9,7 @@ import { Menu, MenuButton, MenuList, MenuItem } from "@chakra-ui/react";
 import { SVGgeneral } from "../../../../utils/generalSprite";
 
 const StyledButtonGroup = styled.div`
-  height: 196px;
+  height: ${(props) => (props.width == "small" ? "250px" : "196px")};
 
   .privateGroup {
     display: grid;
@@ -31,6 +31,14 @@ const StyledButtonGroup = styled.div`
     .privateGroupRightButton {
       background-color: ${(props) => (props.color ? "#121417" : "#FFFFFF")};
       color: ${(props) => (props.color ? "white" : "#21223E")};
+    }
+  }
+
+  @media (max-width: 960px) {
+    .privateGroup {
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
   }
 
@@ -158,12 +166,32 @@ const StyledButton = styled.button`
   }
 `;
 
+const StyledMenuBottom = styled.div`
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+
+  font-weight: 400;
+  font-size: 13px;
+  line-height: 17px;
+
+  color: #ffffff;
+
+  .smallMenu {
+    cursor: pointer;
+    margin-right: 16px;
+  }
+`;
+
 function ButtonGroup() {
   const dispatch = useDispatch();
   const [privateButton, setPrivateButton] = useState("privateGroupLeft");
   const [deviceButton, setDeviceButton] = useState("pc");
 
   const color = useSelector((state) => state.pageReducer.color);
+  const width = useSelector((state) => state.pageReducer.width);
 
   const changeView = (view) => {
     dispatch(togglePageView(view));
@@ -171,7 +199,7 @@ function ButtonGroup() {
 
   return (
     <>
-      <StyledButtonGroup color={color}>
+      <StyledButtonGroup color={color} width={width}>
         <div className="privateGroup">
           <div className="privateGroupLeft">
             <StyledButton
@@ -210,39 +238,41 @@ function ButtonGroup() {
               </div>
               <span className="text">Private</span>
             </StyledButton>
-            <Menu className="menu" color={color}>
-              <MenuButton className="menuButton">
-                <div className="buttonMenu">
-                  <span>View</span>
-                  <div>
-                    <SVGgeneral
-                      id="iconButtonDown"
-                      style={{ fill: color ? "white" : "#21223E" }}
-                    />
+            {width === "small" ? null : (
+              <Menu className="menu" color={color}>
+                <MenuButton className="menuButton">
+                  <div className="buttonMenu">
+                    <span>View</span>
+                    <div>
+                      <SVGgeneral
+                        id="iconButtonDown"
+                        style={{ fill: color ? "white" : "#21223E" }}
+                      />
+                    </div>
                   </div>
-                </div>
-              </MenuButton>
-              <MenuList className="menuList">
-                <MenuItem
-                  className="menuItem"
-                  onClick={() => changeView("View")}
-                >
-                  View
-                </MenuItem>
-                <MenuItem
-                  className="menuItem"
-                  onClick={() => changeView("ViewVariant2")}
-                >
-                  View all
-                </MenuItem>
-                <MenuItem
-                  className="menuItem"
-                  onClick={() => changeView("ViewVariant3")}
-                >
-                  View time
-                </MenuItem>
-              </MenuList>
-            </Menu>
+                </MenuButton>
+                <MenuList className="menuList">
+                  <MenuItem
+                    className="menuItem"
+                    onClick={() => changeView("View")}
+                  >
+                    View
+                  </MenuItem>
+                  <MenuItem
+                    className="menuItem"
+                    onClick={() => changeView("ViewVariant2")}
+                  >
+                    View all
+                  </MenuItem>
+                  <MenuItem
+                    className="menuItem"
+                    onClick={() => changeView("ViewVariant3")}
+                  >
+                    View time
+                  </MenuItem>
+                </MenuList>
+              </Menu>
+            )}
           </div>
         </div>
         <div className="deviceGroup">
@@ -284,26 +314,50 @@ function ButtonGroup() {
             </div>
             <span className="text">Mobile Android</span>
           </StyledButton>
-          <StyledButton
-            color={color}
-            className={
-              deviceButton === "ios"
-                ? "activeDeviceGroupButton"
-                : "deviceGroupButton"
-            }
-            onClick={() => setDeviceButton("ios")}
-          >
-            <div className="svgBlock">
-              <SVGgeneral
-                id="iconAndroid"
-                style={{
-                  fill: color ? "#FFFFFF" : "#21223E",
-                }}
-              />
-            </div>
-            <span className="text">Mobile IOS</span>
-          </StyledButton>
+          {width === "small" ? null : (
+            <StyledButton
+              color={color}
+              className={
+                deviceButton === "ios"
+                  ? "activeDeviceGroupButton"
+                  : "deviceGroupButton"
+              }
+              onClick={() => setDeviceButton("ios")}
+            >
+              <div className="svgBlock">
+                <SVGgeneral
+                  id="iconAndroid"
+                  style={{
+                    fill: color ? "#FFFFFF" : "#21223E",
+                  }}
+                />
+              </div>
+              <span className="text">Mobile IOS</span>
+            </StyledButton>
+          )}
         </div>
+        {width === "small" ? (
+          <StyledMenuBottom>
+            <div className="smallMenu">
+              <span>View:</span>
+            </div>
+            <div className="smallMenu" onClick={() => changeView("View")}>
+              <span>Date</span>
+            </div>
+            <div
+              className="smallMenu"
+              onClick={() => changeView("ViewVariant2")}
+            >
+              <span>Tile</span>
+            </div>
+            <div
+              className="smallMenu"
+              onClick={() => changeView("ViewVariant3")}
+            >
+              <span>Description</span>
+            </div>
+          </StyledMenuBottom>
+        ) : null}
       </StyledButtonGroup>
     </>
   );
